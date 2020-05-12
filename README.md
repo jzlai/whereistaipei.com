@@ -6,7 +6,7 @@
 
 ## Contribution
 
-If you notice any company missing please don't hestitate to open a Pull Request. All data can be found [here](data/index.js).
+If you notice any company missing please don't hestitate to open a [Pull Request](https://github.com/jzlai/whereistaipei.com/pulls). All data can be found [here](data/index.js).
 
 ## Build Setup
 
