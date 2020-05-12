@@ -1,24 +1,23 @@
 name: CI
 on:
   push:
-    branches: [ master ]
+    branches: [master]
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
 
-    - name: Generate dist
-      run: yarn generate
-    
-    - name: Publish
-      uses: yg/deploy-surge@v1.0.1
-      with:
-        SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
-        DOMAIN_NAME: whereistaipei.surge.sh
-        BUILD_DIRECTORY: dist
-    
-    
-    
+      - name: Generate dist
+        run: |
+          yarn
+          yarn generate
+
+      - name: Publish
+        uses: yg/deploy-surge@v1.0.1
+        with:
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+          DOMAIN_NAME: https://whereistaipei.surge.sh
+          BUILD_DIRECTORY: dist
