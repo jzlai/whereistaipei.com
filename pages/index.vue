@@ -13,7 +13,12 @@
             Scroll down for a list of companies and their views on this topic...
           </h6>
           <a href="#" v-scroll-to="'#table'">
-            <b-icon icon="chevron-down" size="is-large" type="is-white" />
+            <b-icon
+              icon="chevron-down"
+              size="is-large"
+              type="is-white"
+              class="scrollToButton"
+            />
           </a>
         </div>
       </div>
@@ -124,5 +129,12 @@ export default {
 
 .items-top {
   align-items: normal !important;
+}
+
+.scrollToButton {
+  transition: all 0.2s ease-in-out;
+}
+.scrollToButton:hover {
+  transform: scale(1.3);
 }
 </style>

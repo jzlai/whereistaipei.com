@@ -1,6 +1,12 @@
+![CI](https://github.com/jzlai/whereistaipei.com/workflows/CI/badge.svg)
+
 # whereistaipei.com
 
-> taiwan #1
+> Taiwan #1
+
+## Contribution
+
+If you notice any company missing please don't hestitate to open a Pull Request. All data can be found [here](data/index.js).
 
 ## Build Setup
 
