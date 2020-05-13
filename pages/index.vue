@@ -3,9 +3,7 @@
     <section class="hero is-fullheight has-bg-img" id="top">
       <div class="hero-body background">
         <div class="container has-text-centered">
-          <h1 class="title is-1 has-text-white">
-            Where is Taipei?
-          </h1>
+          <h1 class="title is-1 has-text-white">Where is Taipei?</h1>
           <h3 class="subtitle is-3 has-text-white">
             Taipei is the capital of Taiwan.
           </h3>
@@ -32,8 +30,7 @@
             icon="magnify"
             clearable
             style="margin-bottom: 15px"
-          >
-          </b-input>
+          />
           <b-table
             :data="filteredData"
             :columns="columns"
@@ -46,7 +43,7 @@
               <section class="section">
                 <div class="content has-text-grey has-text-centered">
                   <p>
-                    <b-icon icon="emoticon-sad" size="is-large"> </b-icon>
+                    <b-icon icon="emoticon-sad" size="is-large"></b-icon>
                   </p>
                   <p>Nothing here.</p>
                 </div>
@@ -59,8 +56,14 @@
         <div class="content has-text-centered">
           <p>
             <strong>whereistaipei.com</strong> by
-            <a href="https://junzhe.me">Jun-Zhe Lai</a> <br />
-            Contribute on
+            <a
+              href="https://junzhe.me"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              jzlai
+            </a>
+            <br />Contribute on
             <a
               href="https://github.com/jzlai/whereistaipei.com"
               target="_blank"
@@ -76,8 +79,8 @@
 </template>
 
 <script>
-import { data } from '@/data';
-import VueScrollTo from 'vue-scrollto';
+import { data } from '@/data'
+import VueScrollTo from 'vue-scrollto'
 
 export default {
   data() {
@@ -101,18 +104,18 @@ export default {
           sortable: true
         }
       ]
-    };
+    }
   },
   computed: {
     filteredData() {
       return this.data.filter(entry => {
         return entry.company_name
           .toLowerCase()
-          .includes(this.search.toLowerCase());
-      });
+          .includes(this.search.toLowerCase())
+      })
     }
   }
-};
+}
 </script>
 
 <style scoped>
