@@ -119,34 +119,12 @@ export default {
 
 <style scoped>
 .has-bg-img {
-  background: url('https://res.cloudinary.com/dtkhgxv0t/image/upload/c_crop,g_center,h_1338,w_768/v1589464359/taipei_gu3vyr.jpg');
+  background: url('https://ik.imagekit.io/it4vm4fvks/taipei_-RYUI-8X8.jpeg');
   background-position: center center;
   background-attachment: fixed;
 }
-@media (min-width: 768) {
-  .has-bg-img {
-    background: url('https://res.cloudinary.com/dtkhgxv0t/image/upload/c_crop,g_center,h_1338,w_992/v1589464359/taipei_gu3vyr.jpg');
-    background-position: center center;
-    background-attachment: fixed;
-  }
-}
-@media (min-width: 992px) {
-  .has-bg-img {
-    background: url('https://res.cloudinary.com/dtkhgxv0t/image/upload/c_crop,g_center,h_2000,w_1200/v1589464359/taipei_gu3vyr.jpg');
-    background-position: center center;
-    background-attachment: fixed;
-  }
-}
-@media (min-width: 1200px) {
-  .has-bg-img {
-    background: url('https://res.cloudinary.com/dtkhgxv0t/image/upload/q_80/v1589464359/taipei_gu3vyr.jpg');
-    background-position: center center;
-    background-attachment: fixed;
-  }
-}
 
 .background {
-  padding: 0;
   background-color: rgba(0, 0, 0, 0.85);
 }
 
