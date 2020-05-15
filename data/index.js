@@ -26,6 +26,9 @@ export const data = [
   { company_name: 'Air France', industry: 'Aviation', stance: 'China' },
   { company_name: 'KLM', industry: 'Aviation', stance: 'China' },
   { company_name: 'Lufthansa', industry: 'Aviation', stance: 'China' },
+  { company_name: 'Turkish Airlines', industry: 'Aviation', stance: 'China' },
+  { company_name: 'Emirates', industry: 'Aviation', stance: 'China' },
+  { company_name: 'Qatar Airways', industry: 'Aviation', stance: 'China' },
 
   //Automotive
   { company_name: 'Citroen', industry: 'Automotive', stance: 'China' },
@@ -100,5 +103,11 @@ export const data = [
   { company_name: 'Uniqlo', industry: 'Fashion', stance: 'Taiwan' },
   { company_name: 'Nike', industry: 'Fashion', stance: 'Taiwan' },
   { company_name: 'Puma', industry: 'Fashion', stance: 'China' },
-  { company_name: 'Ralph Lauren', industry: 'Fashion', stance: 'Taiwan' }
+  { company_name: 'Ralph Lauren', industry: 'Fashion', stance: 'Taiwan' },
+  { company_name: 'H&M', industry: 'Fashion', stance: 'Taiwan Region' },
+  { company_name: 'Zara', industry: 'Fashion', stance: 'China' },
+  { company_name: 'Muji', industry: 'Fashion', stance: 'Taiwan' },
+  { company_name: 'Mango', industry: 'Fashion', stance: 'Taiwan Region' },
+  { company_name: "Levi's", industry: 'Fashion', stance: 'Taiwan Region' },
+  { company_name: 'Topshop', industry: 'Fashion', stance: 'Taiwan' }
 ]
