@@ -14,10 +14,3 @@ jobs:
         run: |
           yarn
           yarn generate
-
-      - name: Publish
-        uses: yg/deploy-surge@v1.0.1
-        with:
-          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
-          DOMAIN_NAME: https://whereistaipei.surge.sh
-          BUILD_DIRECTORY: dist
