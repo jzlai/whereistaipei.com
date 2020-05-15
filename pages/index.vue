@@ -173,15 +173,14 @@ export default {
       if (!this.selectedIndustry) {
         return true
       }
-      return industry
-        .toLowerCase()
-        .includes(this.selectedIndustry.toLowerCase())
+
+      return industry.toLowerCase() === this.selectedIndustry.toLowerCase()
     },
     isSelectedStance(stance) {
       if (!this.selectedStance) {
         return true
       }
-      return stance.toLowerCase().includes(this.selectedStance.toLowerCase())
+      return stance.toLowerCase() === this.selectedStance.toLowerCase()
     }
   }
 }

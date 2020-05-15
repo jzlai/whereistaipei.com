@@ -21,6 +21,7 @@ export const data = [
   { company_name: 'China Airlines', industry: 'Airline', stance: 'Taiwan' },
   { company_name: 'Air France', industry: 'Airline', stance: 'China' },
   { company_name: 'KLM', industry: 'Airline', stance: 'China' },
+  { company_name: 'Lufthansa', industry: 'Airline', stance: 'China' },
 
   //Automotive
   { company_name: 'Citroen', industry: 'Automotive', stance: 'China' },
@@ -28,7 +29,7 @@ export const data = [
   { company_name: 'Ford', industry: 'Automotive', stance: 'China' },
   { company_name: 'Mercedes-Benz', industry: 'Automotive', stance: 'China' },
   { company_name: 'BMW', industry: 'Automotive', stance: 'China' },
-  { company_name: 'Honda', industry: 'Automotive', stance: 'Chinese-Taipei' },
+  { company_name: 'Honda', industry: 'Automotive', stance: 'Chinese Taipei' },
   { company_name: 'Volvo', industry: 'Automotive', stance: 'China' },
   { company_name: 'Hyundai', industry: 'Automotive', stance: 'Taiwan' },
   { company_name: 'Jaguar', industry: 'Automotive', stance: 'Taiwan' },
@@ -41,10 +42,10 @@ export const data = [
   { company_name: 'Volkswagen', industry: 'Automotive', stance: 'Taiwan' },
   { company_name: 'Rolls Royce', industry: 'Automotive', stance: 'Taiwan' },
   { company_name: 'Toyota', industry: 'Automotive', stance: 'Taiwan' },
-  { company_name: 'Subaru', industry: 'Automotive', stance: 'Taiwan-ROC' },
-  { company_name: 'Infinity', industry: 'Automotive', stance: 'Taiwan-ROC' },
-  { company_name: 'Mazda', industry: 'Automotive', stance: 'Taiwan-ROC' },
-  { company_name: 'Tesla', industry: 'Automotive', stance: 'Taiwan-ROC' },
+  { company_name: 'Subaru', industry: 'Automotive', stance: 'Taiwan ROC' },
+  { company_name: 'Infinity', industry: 'Automotive', stance: 'Taiwan ROC' },
+  { company_name: 'Mazda', industry: 'Automotive', stance: 'Taiwan ROC' },
+  { company_name: 'Tesla', industry: 'Automotive', stance: 'Taiwan ROC' },
   { company_name: 'Lexus', industry: 'Automotive', stance: 'Taiwan' },
 
   //Technology
@@ -93,4 +94,4 @@ export const data = [
   { company_name: 'Nike', industry: 'Fashion', stance: 'Taiwan' },
   { company_name: 'Puma', industry: 'Fashion', stance: 'China' },
   { company_name: 'Ralph Lauren', industry: 'Fashion', stance: 'Taiwan' }
-];
+]
