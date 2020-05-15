@@ -12,8 +12,10 @@
     "format": "prettier --write \"**/*.{js,jsx,json,md}\""
   },
   "dependencies": {
+    "chart.js": "^2.9.3",
     "nuxt": "^2.0.0",
     "nuxt-buefy": "^0.3.2",
+    "vue-chartjs": "^3.5.0",
     "vue-scrollto": "^2.18.1"
   },
   "devDependencies": {

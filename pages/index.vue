@@ -23,7 +23,7 @@
     </section>
     <section class="hero is-fullheight" id="table">
       <div class="hero-body items-top">
-        <div class="container has-text-centered">
+        <div class="container has-text-centered" style="width:100%">
           <div class="columns">
             <div class="column is-7">
               <b-input
@@ -66,29 +66,36 @@
               <b-button class="is-primary" @click="resetFields">Reset</b-button>
             </div>
           </div>
-
-          <b-table
-            :data="filteredData"
-            :columns="columns"
-            :default-sort="['company_name', 'asc']"
-            :paginated="true"
-            :striped="true"
-            :per-page="16"
-            sort-icon="chevron-down"
-          >
-            <template slot="empty">
-              <section class="section">
-                <div class="content has-text-grey has-text-centered">
-                  <p>
-                    <b-icon icon="emoticon-sad" size="is-large"></b-icon>
-                  </p>
-                  <p>Nothing here.</p>
-                </div>
-              </section>
-            </template>
-          </b-table>
+          <div class="columns is-vcentered">
+            <div class="column">
+              <b-table
+                :data="filteredData"
+                :columns="columns"
+                :default-sort="['company_name', 'asc']"
+                :paginated="true"
+                :striped="true"
+                :per-page="16"
+                sort-icon="chevron-down"
+              >
+                <template slot="empty">
+                  <section class="section">
+                    <div class="content has-text-grey has-text-centered">
+                      <p>
+                        <b-icon icon="emoticon-sad" size="is-large"></b-icon>
+                      </p>
+                      <p>Nothing here.</p>
+                    </div>
+                  </section>
+                </template>
+              </b-table>
+            </div>
+            <div class="column is-4">
+              <pie-chart :chart-data="pieChartData" />
+            </div>
+          </div>
         </div>
       </div>
+
       <footer class="footer">
         <div class="content has-text-centered">
           <p>
@@ -117,8 +124,12 @@
 <script>
 import { data } from '@/data'
 import VueScrollTo from 'vue-scrollto'
+import PieChart from '@/components/pie'
 
 export default {
+  components: {
+    PieChart
+  },
   data() {
     return {
       search: '',
@@ -161,6 +172,37 @@ export default {
     },
     stances() {
       return Array.from(new Set(this.data.map(entry => entry.stance)))
+    },
+    stancesWithAmount() {
+      return this.filteredData.reduce((stances, curr) => {
+        if (stances[curr.stance]) {
+          stances[curr.stance] += 1
+        } else {
+          stances[curr.stance] = 1
+        }
+        return stances
+      }, {})
+    },
+    pieChartData() {
+      const labels = Object.keys(this.stancesWithAmount)
+
+      const colorMapping = {
+        China: '#F7464A',
+        Taiwan: '#018002',
+        'Chinese Taipei': '#FDB45C',
+        'Taiwan ROC': '#949FB1',
+        'Taiwan Region': '#4D5360'
+      }
+      const datasets = [
+        {
+          data: Object.values(this.stancesWithAmount),
+          backgroundColor: labels.map(label => colorMapping[label])
+        }
+      ]
+      return {
+        labels,
+        datasets
+      }
     }
   },
   methods: {
@@ -173,7 +215,6 @@ export default {
       if (!this.selectedIndustry) {
         return true
       }
-
       return industry.toLowerCase() === this.selectedIndustry.toLowerCase()
     },
     isSelectedStance(stance) {
@@ -206,5 +247,8 @@ export default {
 }
 .scrollToButton:hover {
   transform: scale(1.3);
+}
+.chart-container {
+  max-width: 500px;
 }
 </style>
