@@ -24,20 +24,57 @@
     <section class="hero is-fullheight" id="table">
       <div class="hero-body items-top">
         <div class="container has-text-centered">
-          <b-input
-            v-model="search"
-            placeholder="Search"
-            icon="magnify"
-            clearable
-            style="margin-bottom: 15px"
-          />
+          <div class="columns">
+            <div class="column is-7">
+              <b-input
+                v-model="search"
+                placeholder="Search"
+                icon="magnify"
+                clearable
+                style="margin-bottom: 15px"
+              />
+            </div>
+            <div class="column is-2">
+              <b-select
+                v-model="selectedIndustry"
+                placeholder="Filter by industry"
+                icon="filter"
+                expanded
+              >
+                <option
+                  v-for="industry in industries"
+                  :value="industry"
+                  :key="industry"
+                >
+                  {{ industry }}
+                </option>
+              </b-select>
+            </div>
+            <div class="column is-2">
+              <b-select
+                v-model="selectedStance"
+                placeholder="Filter by stance"
+                icon="filter"
+                expanded
+              >
+                <option v-for="stance in stances" :value="stance" :key="stance">
+                  {{ stance }}
+                </option>
+              </b-select>
+            </div>
+            <div class="column is-1">
+              <b-button class="is-primary" @click="resetFields">Reset</b-button>
+            </div>
+          </div>
+
           <b-table
             :data="filteredData"
             :columns="columns"
             :default-sort="['company_name', 'asc']"
             :paginated="true"
             :striped="true"
-            :per-page="17"
+            :per-page="16"
+            sort-icon="chevron-down"
           >
             <template slot="empty">
               <section class="section">
@@ -85,6 +122,8 @@ export default {
   data() {
     return {
       search: '',
+      selectedIndustry: undefined,
+      selectedStance: undefined,
       data,
       columns: [
         {
@@ -108,10 +147,41 @@ export default {
   computed: {
     filteredData() {
       return this.data.filter(entry => {
-        return entry.company_name
-          .toLowerCase()
-          .includes(this.search.toLowerCase())
+        return (
+          entry.company_name
+            .toLowerCase()
+            .includes(this.search.toLowerCase()) &&
+          this.isSelectedIndustry(entry.industry) &&
+          this.isSelectedStance(entry.stance)
+        )
       })
+    },
+    industries() {
+      return Array.from(new Set(this.data.map(entry => entry.industry)))
+    },
+    stances() {
+      return Array.from(new Set(this.data.map(entry => entry.stance)))
+    }
+  },
+  methods: {
+    resetFields() {
+      this.selectedIndustry = undefined
+      this.selectedStance = undefined
+      this.search = ''
+    },
+    isSelectedIndustry(industry) {
+      if (!this.selectedIndustry) {
+        return true
+      }
+      return industry
+        .toLowerCase()
+        .includes(this.selectedIndustry.toLowerCase())
+    },
+    isSelectedStance(stance) {
+      if (!this.selectedStance) {
+        return true
+      }
+      return stance.toLowerCase().includes(this.selectedStance.toLowerCase())
     }
   }
 }
