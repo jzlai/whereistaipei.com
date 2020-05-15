@@ -65,6 +65,9 @@ export const data = [
   { company_name: 'Lenovo', industry: 'Technology', stance: 'Taiwan Region' },
   { company_name: 'Dell', industry: 'Technology', stance: 'Taiwan' },
   { company_name: 'Bose', industry: 'Technology', stance: 'Taiwan' },
+  { company_name: 'Apple', industry: 'Technology', stance: 'Taiwan' },
+  { company_name: 'AWS', industry: 'Technology', stance: 'Taiwan' },
+  { company_name: 'Google', industry: 'Technology', stance: 'Taiwan' },
   {
     company_name: 'Beats by Dre',
     industry: 'Technology',
