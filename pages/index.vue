@@ -22,7 +22,7 @@
       </div>
     </section>
     <section class="hero is-fullheight" id="table">
-      <div class="hero-body items-top">
+      <div class="hero-body">
         <div class="container has-text-centered" style="width:100%">
           <div class="columns">
             <div class="column is-7">
@@ -238,17 +238,28 @@ export default {
   background-color: rgba(0, 0, 0, 0.85);
 }
 
-.items-top {
-  align-items: normal !important;
-}
-
 .scrollToButton {
-  transition: all 0.2s ease-in-out;
-}
-.scrollToButton:hover {
-  transform: scale(1.3);
+  animation: up-down 1s infinite alternate;
+  -webkit-animation: up-down 1s infinite alternate;
 }
 .chart-container {
   max-width: 500px;
+}
+
+@keyframes up-down {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
+}
+@-webkit-keyframes up-down {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
 }
 </style>
