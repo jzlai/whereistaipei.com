@@ -22,7 +22,7 @@
       </div>
     </section>
     <section class="hero is-fullheight" id="table">
-      <div class="hero-body">
+      <div class="hero-body items-top">
         <div class="container has-text-centered" style="width:100%">
           <div class="columns">
             <div class="column is-7">
@@ -66,7 +66,7 @@
               <b-button class="is-primary" @click="resetFields">Reset</b-button>
             </div>
           </div>
-          <div class="columns is-vcentered">
+          <div class="columns">
             <div class="column">
               <b-table
                 :data="filteredData"
@@ -74,7 +74,7 @@
                 :default-sort="['company_name', 'asc']"
                 :paginated="true"
                 :striped="true"
-                :per-page="16"
+                :per-page="15"
                 sort-icon="chevron-down"
               >
                 <template slot="empty">
@@ -242,8 +242,9 @@ export default {
   animation: up-down 1s infinite alternate;
   -webkit-animation: up-down 1s infinite alternate;
 }
-.chart-container {
-  max-width: 500px;
+
+.items-top {
+  align-items: normal !important;
 }
 
 @keyframes up-down {
