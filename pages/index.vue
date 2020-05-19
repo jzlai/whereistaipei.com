@@ -122,9 +122,13 @@
 </template>
 
 <script>
-import { data } from '@/data'
+import { data as importData } from '@/data'
 import VueScrollTo from 'vue-scrollto'
 import PieChart from '@/components/pie'
+import uniqWith from 'lodash.uniqwith'
+import isEqual from 'lodash.isequal'
+
+const data = uniqWith(importData, isEqual)
 
 export default {
   components: {

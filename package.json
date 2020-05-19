@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "chart.js": "^2.9.3",
+    "lodash.isequal": "^4.5.0",
+    "lodash.uniqwith": "^4.5.0",
     "nuxt": "^2.0.0",
     "nuxt-buefy": "^0.3.2",
     "vue-chartjs": "^3.5.0",
