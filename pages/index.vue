@@ -233,7 +233,7 @@ export default {
 
 <style scoped>
 .has-bg-img {
-  background: url('https://ik.imagekit.io/it4vm4fvks/taipei_-RYUI-8X8.jpeg');
+  background: url('https://res.cloudinary.com/dtkhgxv0t/image/upload/s--i1YHzc6x--/c_imagga_scale,q_jpegmini:2,w_1719/v1589464359/taipei_gu3vyr.jpg');
   background-position: center center;
   background-attachment: fixed;
   background-size: cover;
