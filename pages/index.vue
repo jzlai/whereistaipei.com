@@ -236,6 +236,7 @@ export default {
   background: url('https://ik.imagekit.io/it4vm4fvks/taipei_-RYUI-8X8.jpeg');
   background-position: center center;
   background-attachment: fixed;
+  background-size: cover;
 }
 
 .background {
