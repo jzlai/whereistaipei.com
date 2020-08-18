@@ -103,6 +103,11 @@ export const data = [
     industry: 'Food and beverages',
     stance: 'Taiwan'
   },
+  {
+    company_name: 'Aleo Drinks',
+    industry: 'Food and beverages',
+    stance: 'Taiwan'
+  },
 
   //Fashion
   { company_name: 'Uniqlo', industry: 'Fashion', stance: 'Taiwan' },
