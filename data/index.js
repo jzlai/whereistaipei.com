@@ -122,5 +122,8 @@ export const data = [
   { company_name: 'Topshop', industry: 'Fashion', stance: 'Taiwan' },
 
   // esports
-  { company_name: 'fnatic', industry: 'Esports', stance: 'China' }
+  { company_name: 'fnatic', industry: 'Esports', stance: 'China' },
+
+  // Other
+  { company_name: 'UPS', industry: 'Other', stance: 'China' }
 ]
