@@ -6,13 +6,13 @@ export const data = [
   {
     company_name: 'Philippine Airlines',
     industry: 'Aviation',
-    stance: 'China'
+    stance: 'China',
   },
   { company_name: 'Thai Airways', industry: 'Aviation', stance: 'China' },
   {
     company_name: 'Jetstar (under Qantas)',
     industry: 'Aviation',
-    stance: 'China'
+    stance: 'China',
   },
   { company_name: 'Scoot', industry: 'Aviation', stance: 'China' },
   { company_name: 'Cathay Pacific', industry: 'Aviation', stance: 'China' },
@@ -32,7 +32,7 @@ export const data = [
   {
     company_name: 'China Southern Airlines',
     industry: 'Aviation',
-    stance: 'China'
+    stance: 'China',
   },
   { company_name: 'Air China', industry: 'Aviation', stance: 'China' },
 
@@ -86,32 +86,33 @@ export const data = [
   {
     company_name: 'Beats by Dre',
     industry: 'Technology',
-    stance: 'Taiwan Region'
+    stance: 'Taiwan Region',
   },
-  { company_name: 'SAP', industry: 'Technology', stance: 'China'},
-  { company_name: 'Bosch', industry: 'Technology', stance: 'Taiwan'},
+  { company_name: 'SAP', industry: 'Technology', stance: 'China' },
+  { company_name: 'Bosch', industry: 'Technology', stance: 'Taiwan' },
+  { company_name: 'IBM', industry: 'Technology', stance: 'Taiwan' },
 
   //Food and beverages
   { company_name: 'Nestle', industry: 'Food and beverages', stance: 'Taiwan' },
   {
     company_name: 'Red Bull',
     industry: 'Food and beverages',
-    stance: 'Taiwan'
+    stance: 'Taiwan',
   },
   {
     company_name: 'Coca-Cola',
     industry: 'Food and beverages',
-    stance: 'Taiwan'
+    stance: 'Taiwan',
   },
   {
     company_name: 'McDonalds',
     industry: 'Food and beverages',
-    stance: 'Taiwan'
+    stance: 'Taiwan',
   },
   {
     company_name: 'Aleo Drinks',
     industry: 'Food and beverages',
-    stance: 'Taiwan'
+    stance: 'Taiwan',
   },
 
   //Fashion
@@ -130,5 +131,5 @@ export const data = [
   { company_name: 'fnatic', industry: 'Esports', stance: 'China' },
 
   // Other
-  { company_name: 'UPS', industry: 'Other', stance: 'China' }
+  { company_name: 'UPS', industry: 'Other', stance: 'China' },
 ]
