@@ -91,6 +91,11 @@ export const data = [
   { company_name: 'SAP', industry: 'Technology', stance: 'China' },
   { company_name: 'Bosch', industry: 'Technology', stance: 'Taiwan' },
   { company_name: 'IBM', industry: 'Technology', stance: 'Taiwan' },
+  { company_name: 'Roccat', industry: 'Technology', stance: 'Taiwan' },
+  { company_name: 'Razer', industry: 'Technology', stance: 'Taiwan' },
+  { company_name: 'Steelseries', industry: 'Technology', stance: 'Taiwan' },
+  { company_name: 'BenQ', industry: 'Technology', stance: 'Taiwan' },
+  { company_name: 'Asus', industry: 'Technology', stance: 'Taiwan' },
 
   //Food and beverages
   { company_name: 'Nestle', industry: 'Food and beverages', stance: 'Taiwan' },
@@ -129,7 +134,6 @@ export const data = [
 
   // esports
   { company_name: 'fnatic', industry: 'Esports', stance: 'China' },
-
   // Other
   { company_name: 'UPS', industry: 'Other', stance: 'China' },
 ]
