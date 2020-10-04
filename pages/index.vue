@@ -95,6 +95,14 @@
           </div>
         </div>
       </div>
+      <a v-scroll-to="'#top'">
+        <b-icon
+          icon="chevron-up"
+          size="is-large"
+          :class="['scrollToTopButton', isScrolled ? 'show' : '']"
+          type="is-white"
+        />
+      </a>
 
       <footer class="footer">
         <div class="content has-text-centered">
@@ -156,7 +164,8 @@ export default {
           label: 'Stance',
           sortable: true
         }
-      ]
+      ],
+      isScrolled: false
     }
   },
   computed: {
@@ -226,7 +235,20 @@ export default {
         return true
       }
       return stance.toLowerCase() === this.selectedStance.toLowerCase()
+    },
+    handleScroll() {
+      if (window.scrollY > 500) {
+        this.isScrolled = true
+      } else {
+        this.isScrolled = false
+      }
     }
+  },
+  beforeMount() {
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.handleScroll)
   }
 }
 </script>
@@ -246,6 +268,20 @@ export default {
 .scrollToButton {
   animation: up-down 1s infinite alternate;
   -webkit-animation: up-down 1s infinite alternate;
+}
+
+.scrollToTopButton {
+  display: flex;
+  position: fixed;
+  bottom: 2.5em;
+  right: 2.5em;
+  z-index: 1000;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.85);
+  visibility: hidden;
+}
+.show {
+  visibility: visible;
 }
 
 .items-top {
