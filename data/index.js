@@ -148,5 +148,6 @@ export const data = [
     stance: 'Taiwan Region'
   },
   // Other
-  { company_name: 'UPS', industry: 'Other', stance: 'China' }
+  { company_name: 'UPS', industry: 'Other', stance: 'China' },
+  { company_name: 'Moleskine', industry: 'Other', stance: 'Taiwan (Province of China)' }
 ]
