@@ -149,5 +149,5 @@ export const data = [
   },
   // Other
   { company_name: 'UPS', industry: 'Other', stance: 'China' },
-  { company_name: 'Moleskine', industry: 'Other', stance: 'Taiwan (Province of China)' }
+  { company_name: 'Moleskine', industry: 'Other', stance: 'China' }
 ]
