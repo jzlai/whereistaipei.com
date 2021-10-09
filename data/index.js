@@ -143,6 +143,11 @@ export const data = [
   { company_name: 'BASF', industry: 'Chemicals', stance: 'Taiwan' },
   // Financial Services
   {
+    company_name: 'Mastercard',
+    industry: 'Financial Services',
+    stance: 'Taiwan Region'
+  },
+  {
     company_name: 'Visa',
     industry: 'Financial Services',
     stance: 'Taiwan Region'
