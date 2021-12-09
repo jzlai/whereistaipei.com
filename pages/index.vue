@@ -255,7 +255,7 @@ export default {
 
 <style scoped>
 .has-bg-img {
-  background: url('https://res.cloudinary.com/dtkhgxv0t/image/upload/c_scale,q_auto,w_auto,dpr_auto/v1589464359/taipei_gu3vyr.jpg');
+  background: url('https://res.cloudinary.com/dtkhgxv0t/image/upload/v1589464359/taipei_gu3vyr.webp');
   background-position: center center;
   background-attachment: fixed;
   background-size: cover;
