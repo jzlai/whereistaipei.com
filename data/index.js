@@ -88,7 +88,7 @@ export const data = [
     industry: 'Technology',
     stance: 'Taiwan Region'
   },
-  { company_name: 'SAP', industry: 'Technology', stance: 'China' },
+  { company_name: 'SAP', industry: 'Technology', stance: 'Taiwan' },
   { company_name: 'Bosch', industry: 'Technology', stance: 'Taiwan' },
   { company_name: 'IBM', industry: 'Technology', stance: 'Taiwan' },
   { company_name: 'Roccat', industry: 'Technology', stance: 'Taiwan' },
