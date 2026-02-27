@@ -7,7 +7,7 @@
 <script setup>
 defineProps({
   path: { type: String, required: true },
-  size: { type: Number, default: 24 }
+  size: { type: Number, default: 24 },
 })
 </script>
 

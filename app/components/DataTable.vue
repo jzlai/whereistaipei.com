@@ -37,7 +37,12 @@
       </div>
     </div>
 
-    <nav v-if="totalPages > 1" class="pagination is-centered" role="navigation" aria-label="pagination">
+    <nav
+      v-if="totalPages > 1"
+      class="pagination is-centered"
+      role="navigation"
+      aria-label="pagination"
+    >
       <a
         class="pagination-previous"
         :class="{ 'is-disabled': currentPage === 1 }"
@@ -58,7 +63,7 @@
             v-if="page !== '...'"
             class="pagination-link"
             :class="{ 'is-current': page === currentPage }"
-            @click="currentPage = page"
+            @click="typeof page === 'number' ? (currentPage = page) : null"
           >
             {{ page }}
           </a>
@@ -69,113 +74,103 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
+import { ref, computed, watch } from 'vue'
 import SvgIcon from './SvgIcon.vue'
 import { mdiChevronUp, mdiChevronDown, mdiEmoticonSad } from '@mdi/js'
 import type { Company, TableColumn, SortDirection } from '@/types'
-import type { PropType } from 'vue'
 
-export default {
-  components: {
-    SvgIcon
-  },
-  props: {
-    data: {
-      type: Array as PropType<Company[]>,
-      required: true
-    },
-    columns: {
-      type: Array as PropType<TableColumn[]>,
-      required: true
-    },
-    perPage: {
-      type: Number,
-      default: 15
-    },
-    defaultSort: {
-      type: Array as PropType<[string, SortDirection]>,
-      default: () => ['', 'asc']
+// Props
+interface Props {
+  data: Company[]
+  columns: TableColumn[]
+  perPage?: number
+  defaultSort?: [string, SortDirection]
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  perPage: 15,
+  defaultSort: () => ['', 'asc'],
+})
+
+// State
+const currentPage = ref(1)
+const sortField = ref(props.defaultSort[0])
+const sortDirection = ref<SortDirection>(props.defaultSort[1])
+
+// Computed
+const sortedData = computed<Company[]>(() => {
+  if (!sortField.value) return props.data
+
+  return [...props.data].sort((a: Company, b: Company) => {
+    const aVal = a[sortField.value as keyof Company]
+    const bVal = b[sortField.value as keyof Company]
+
+    let comparison = 0
+    if (aVal > bVal) comparison = 1
+    if (aVal < bVal) comparison = -1
+
+    return sortDirection.value === 'asc' ? comparison : -comparison
+  })
+})
+
+const paginatedData = computed<Company[]>(() => {
+  const start = (currentPage.value - 1) * props.perPage
+  const end = start + props.perPage
+  return sortedData.value.slice(start, end)
+})
+
+const totalPages = computed<number>(() => {
+  return Math.ceil(sortedData.value.length / props.perPage)
+})
+
+const displayedPages = computed<(number | string)[]>(() => {
+  const pages: (number | string)[] = []
+  const total = totalPages.value
+  const current = currentPage.value
+
+  if (total <= 7) {
+    for (let i = 1; i <= total; i++) {
+      pages.push(i)
     }
-  },
-  data() {
-    return {
-      currentPage: 1 as number,
-      sortField: this.defaultSort[0] as string,
-      sortDirection: this.defaultSort[1] as SortDirection,
-      mdiChevronUp,
-      mdiChevronDown,
-      mdiEmoticonSad
-    }
-  },
-  computed: {
-    sortedData(): Company[] {
-      if (!this.sortField) return this.data
-
-      return [...this.data].sort((a: Company, b: Company) => {
-        const aVal = a[this.sortField as keyof Company]
-        const bVal = b[this.sortField as keyof Company]
-
-        let comparison = 0
-        if (aVal > bVal) comparison = 1
-        if (aVal < bVal) comparison = -1
-
-        return this.sortDirection === 'asc' ? comparison : -comparison
-      })
-    },
-    paginatedData(): Company[] {
-      const start = (this.currentPage - 1) * this.perPage
-      const end = start + this.perPage
-      return this.sortedData.slice(start, end)
-    },
-    totalPages(): number {
-      return Math.ceil(this.sortedData.length / this.perPage)
-    },
-    displayedPages(): (number | string)[] {
-      const pages: (number | string)[] = []
-      const total = this.totalPages
-      const current = this.currentPage
-
-      if (total <= 7) {
-        for (let i = 1; i <= total; i++) {
-          pages.push(i)
-        }
-      } else {
-        if (current <= 4) {
-          for (let i = 1; i <= 5; i++) pages.push(i)
-          pages.push('...')
-          pages.push(total)
-        } else if (current >= total - 3) {
-          pages.push(1)
-          pages.push('...')
-          for (let i = total - 4; i <= total; i++) pages.push(i)
-        } else {
-          pages.push(1)
-          pages.push('...')
-          for (let i = current - 1; i <= current + 1; i++) pages.push(i)
-          pages.push('...')
-          pages.push(total)
-        }
-      }
-
-      return pages
-    }
-  },
-  watch: {
-    data() {
-      this.currentPage = 1
-    }
-  },
-  methods: {
-    toggleSort(field: keyof Company): void {
-      if (this.sortField === field) {
-        this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc'
-      } else {
-        this.sortField = field
-        this.sortDirection = 'asc'
-      }
+  } else {
+    if (current <= 4) {
+      for (let i = 1; i <= 5; i++) pages.push(i)
+      pages.push('...')
+      pages.push(total)
+    } else if (current >= total - 3) {
+      pages.push(1)
+      pages.push('...')
+      for (let i = total - 4; i <= total; i++) pages.push(i)
+    } else {
+      pages.push(1)
+      pages.push('...')
+      for (let i = current - 1; i <= current + 1; i++) pages.push(i)
+      pages.push('...')
+      pages.push(total)
     }
   }
+
+  return pages
+})
+
+// Methods
+const toggleSort = (field: keyof Company): void => {
+  if (sortField.value === field) {
+    sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc'
+  } else {
+    sortField.value = field
+    sortDirection.value = 'asc'
+  }
 }
+
+// Watchers
+watch(
+  () => props.data,
+  () => {
+    currentPage.value = 1
+  },
+)
 </script>
 
 <style scoped>

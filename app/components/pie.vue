@@ -11,7 +11,7 @@ ChartJS.register(ArcElement, Tooltip, Legend)
 
 const props = defineProps({
   chartData: { type: Object, required: true },
-  options: { type: Object, default: () => ({}) }
+  options: { type: Object, default: () => ({}) },
 })
 
 const isDarkMode = ref(false)
@@ -35,10 +35,10 @@ const chartOptions = computed(() => ({
   plugins: {
     legend: {
       labels: {
-        color: isDarkMode.value ? '#f5f5f5' : '#363636'
-      }
-    }
+        color: isDarkMode.value ? '#f5f5f5' : '#363636',
+      },
+    },
   },
-  ...props.options
+  ...props.options,
 }))
 </script>

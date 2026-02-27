@@ -22,7 +22,7 @@
     </section>
     <section ref="tableSection" class="hero is-fullheight">
       <div class="hero-body items-top">
-        <div class="container has-text-centered" style="width:100%">
+        <div class="container has-text-centered" style="width: 100%">
           <div class="columns">
             <div class="column is-7">
               <div class="field">
@@ -66,7 +66,11 @@
                   <div class="select is-fullwidth">
                     <select v-model="selectedStance">
                       <option :value="undefined">Filter by stance</option>
-                      <option v-for="stance in stances" :value="stance" :key="stance">
+                      <option
+                        v-for="stance in stances"
+                        :value="stance"
+                        :key="stance"
+                      >
                         {{ stance }}
                       </option>
                     </select>
@@ -78,7 +82,10 @@
               </div>
             </div>
             <div class="column is-1">
-              <button class="button is-primary is-fullwidth" @click="resetFields">
+              <button
+                class="button is-primary is-fullwidth"
+                @click="resetFields"
+              >
                 Reset
               </button>
             </div>
@@ -102,7 +109,11 @@
         <SvgIcon
           :path="mdiChevronUp"
           :size="48"
-          :class="['scrollToTopButton', 'has-text-white', isScrolled ? 'show' : '']"
+          :class="[
+            'scrollToTopButton',
+            'has-text-white',
+            isScrolled ? 'show' : '',
+          ]"
         />
       </button>
 
@@ -131,159 +142,136 @@
   </div>
 </template>
 
-<script lang="ts">
-import { data as importData } from '@/data'
+<script setup lang="ts">
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { data } from '@/data'
 import PieChart from '@/components/pie.vue'
 import DataTable from '@/components/DataTable.vue'
 import SvgIcon from '@/components/SvgIcon.vue'
-import { mdiChevronDown, mdiChevronUp, mdiMagnify, mdiFilter, mdiGithub } from '@mdi/js'
-import type { Company, TableColumn, ChartData, Stance } from '@/types'
+import {
+  mdiChevronDown,
+  mdiChevronUp,
+  mdiMagnify,
+  mdiFilter,
+  mdiGithub,
+} from '@mdi/js'
+import { STANCE_COLORS } from '@/constants/stances'
+import type {
+  Company,
+  TableColumn,
+  ChartData,
+  Stance,
+  PartialStanceCounts,
+} from '@/types'
 
-// Deduplicate data using native JS
-const seen = new Set<string>()
-const data = importData.filter((item: Company) => {
-  const key = JSON.stringify(item)
-  if (seen.has(key)) {
-    return false
-  }
-  seen.add(key)
-  return true
+// Refs
+const topSection = ref<HTMLElement>()
+const tableSection = ref<HTMLElement>()
+const search = ref('')
+const selectedIndustry = ref<string>()
+const selectedStance = ref<Stance>()
+const isScrolled = ref(false)
+
+// Constants
+const columns: TableColumn[] = [
+  {
+    field: 'company_name',
+    label: 'Company Name',
+    sortable: true,
+  },
+  {
+    field: 'industry',
+    label: 'Industry',
+    sortable: true,
+  },
+  {
+    field: 'stance',
+    label: 'Stance',
+    sortable: true,
+  },
+]
+
+// Computed
+const filteredData = computed<Company[]>(() => {
+  return data.filter(entry => {
+    return (
+      entry.company_name.toLowerCase().includes(search.value.toLowerCase()) &&
+      isSelectedIndustry(entry.industry) &&
+      isSelectedStance(entry.stance)
+    )
+  })
 })
 
-interface StancesWithAmount {
-  [key: string]: number
-}
+const industries = computed<string[]>(() => {
+  return Array.from(new Set(data.map(entry => entry.industry)))
+})
 
-interface ColorMapping {
-  [key: string]: string
-}
+const stances = computed<Stance[]>(() => {
+  return Array.from(new Set(data.map(entry => entry.stance)))
+})
 
-export default {
-  components: {
-    PieChart,
-    DataTable,
-    SvgIcon
-  },
-  data() {
-    return {
-      search: '' as string,
-      selectedIndustry: undefined as string | undefined,
-      selectedStance: undefined as Stance | undefined,
-      data,
-      columns: [
-        {
-          field: 'company_name',
-          label: 'Company Name',
-          sortable: true
-        },
-        {
-          field: 'industry',
-          label: 'Industry',
-          sortable: true
-        },
-        {
-          field: 'stance',
-          label: 'Stance',
-          sortable: true
-        }
-      ] as TableColumn[],
-      isScrolled: false as boolean,
-      mdiChevronDown,
-      mdiChevronUp,
-      mdiMagnify,
-      mdiFilter,
-      mdiGithub
-    }
-  },
-  computed: {
-    filteredData(): Company[] {
-      return this.data.filter((entry: Company) => {
-        return (
-          entry.company_name
-            .toLowerCase()
-            .includes(this.search.toLowerCase()) &&
-          this.isSelectedIndustry(entry.industry) &&
-          this.isSelectedStance(entry.stance)
-        )
-      })
-    },
-    industries(): string[] {
-      return Array.from(new Set(this.data.map((entry: Company) => entry.industry)))
-    },
-    stances(): Stance[] {
-      return Array.from(new Set(this.data.map((entry: Company) => entry.stance)))
-    },
-    stancesWithAmount(): StancesWithAmount {
-      return this.filteredData.reduce((stances: StancesWithAmount, curr: Company) => {
-        if (stances[curr.stance]) {
-          stances[curr.stance] += 1
-        } else {
-          stances[curr.stance] = 1
-        }
-        return stances
-      }, {})
-    },
-    pieChartData(): ChartData {
-      const labels = Object.keys(this.stancesWithAmount)
+const stancesWithAmount = computed<PartialStanceCounts>(() => {
+  return filteredData.value.reduce((acc, curr) => {
+    acc[curr.stance] = (acc[curr.stance] ?? 0) + 1
+    return acc
+  }, {} as PartialStanceCounts)
+})
 
-      const colorMapping: ColorMapping = {
-        China: '#F7464A',
-        Taiwan: '#018002',
-        'Chinese Taipei': '#FDB45C',
-        'Taiwan ROC': '#949FB1',
-        'Taiwan Region': '#4D5360'
-      }
-      const datasets = [
-        {
-          data: Object.values(this.stancesWithAmount),
-          backgroundColor: labels.map((label: string) => colorMapping[label])
-        }
-      ]
-      return {
-        labels,
-        datasets
-      }
-    }
-  },
-  methods: {
-    resetFields(): void {
-      this.selectedIndustry = undefined
-      this.selectedStance = undefined
-      this.search = ''
+const pieChartData = computed<ChartData>(() => {
+  const labels = Object.keys(stancesWithAmount.value) as Stance[]
+  const datasets = [
+    {
+      data: Object.values(stancesWithAmount.value) as number[],
+      backgroundColor: labels.map(label => STANCE_COLORS[label]),
     },
-    isSelectedIndustry(industry: string): boolean {
-      if (!this.selectedIndustry) {
-        return true
-      }
-      return industry.toLowerCase() === this.selectedIndustry.toLowerCase()
-    },
-    isSelectedStance(stance: Stance): boolean {
-      if (!this.selectedStance) {
-        return true
-      }
-      return stance.toLowerCase() === this.selectedStance.toLowerCase()
-    },
-    handleScroll(): void {
-      if (window.scrollY > 500) {
-        this.isScrolled = true
-      } else {
-        this.isScrolled = false
-      }
-    },
-    scrollToTop(): void {
-      (this.$refs.topSection as HTMLElement)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    },
-    scrollToTable(): void {
-      (this.$refs.tableSection as HTMLElement)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }
-  },
-  mounted() {
-    window.addEventListener('scroll', this.handleScroll)
-  },
-  beforeUnmount() {
-    window.removeEventListener('scroll', this.handleScroll)
+  ]
+  return {
+    labels,
+    datasets,
   }
+})
+
+// Methods
+const resetFields = (): void => {
+  selectedIndustry.value = undefined
+  selectedStance.value = undefined
+  search.value = ''
 }
+
+const isSelectedIndustry = (industry: string): boolean => {
+  if (!selectedIndustry.value) {
+    return true
+  }
+  return industry.toLowerCase() === selectedIndustry.value.toLowerCase()
+}
+
+const isSelectedStance = (stance: Stance): boolean => {
+  if (!selectedStance.value) {
+    return true
+  }
+  return stance.toLowerCase() === selectedStance.value.toLowerCase()
+}
+
+const handleScroll = (): void => {
+  isScrolled.value = window.scrollY > 500
+}
+
+const scrollToTop = (): void => {
+  topSection.value?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
+
+const scrollToTable = (): void => {
+  tableSection.value?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
+
+// Lifecycle
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
 </script>
 
 <style scoped>

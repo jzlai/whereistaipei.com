@@ -29,13 +29,13 @@
   },
   "include": [
     "app/**/*",
-    "*.ts",
-    "*.d.ts"
+    ".nuxt/nuxt.d.ts"
   ],
   "exclude": [
     "node_modules",
     ".nuxt",
     ".output",
-    "dist"
+    "dist",
+    "nuxt.config.ts"
   ]
 }
