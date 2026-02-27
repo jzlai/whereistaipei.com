@@ -1,4 +1,6 @@
-export const data = [
+import type { Company } from '@/types'
+
+export const data: Company[] = [
   { company_name: 'Singapore Airlines', industry: 'Aviation', stance: 'China' },
   { company_name: 'Malaysian Airlines', industry: 'Aviation', stance: 'China' },
   { company_name: 'Garuda Indonesia', industry: 'Aviation', stance: 'China' },
@@ -35,7 +37,7 @@ export const data = [
   },
   { company_name: 'Air China', industry: 'Aviation', stance: 'China' },
 
-  //Automotive
+  // Automotive
   { company_name: 'Citroen', industry: 'Automotive', stance: 'China' },
   { company_name: 'Peugeot', industry: 'Automotive', stance: 'China' },
   { company_name: 'Ford', industry: 'Automotive', stance: 'China' },
@@ -60,7 +62,7 @@ export const data = [
   { company_name: 'Tesla', industry: 'Automotive', stance: 'Taiwan ROC' },
   { company_name: 'Lexus', industry: 'Automotive', stance: 'Taiwan' },
 
-  //Technology
+  // Technology
   { company_name: 'Nintendo', industry: 'Technology', stance: 'Taiwan' },
   { company_name: 'Microsoft', industry: 'Technology', stance: 'Taiwan' },
   { company_name: 'Nvidia', industry: 'Technology', stance: 'Taiwan' },
@@ -98,7 +100,7 @@ export const data = [
   { company_name: 'Kuka', industry: 'Technology', stance: 'China' },
   { company_name: 'Infineon', industry: 'Technology', stance: 'Taiwan Region' },
 
-  //Food and beverages
+  // Food and beverages
   { company_name: 'Nestle', industry: 'Food and beverages', stance: 'Taiwan' },
   {
     company_name: 'Red Bull',
@@ -121,7 +123,7 @@ export const data = [
     stance: 'Taiwan'
   },
 
-  //Fashion
+  // Fashion
   { company_name: 'Uniqlo', industry: 'Fashion', stance: 'Taiwan' },
   { company_name: 'Nike', industry: 'Fashion', stance: 'Taiwan' },
   { company_name: 'Puma', industry: 'Fashion', stance: 'China' },
@@ -133,13 +135,16 @@ export const data = [
   { company_name: "Levi's", industry: 'Fashion', stance: 'Taiwan Region' },
   { company_name: 'Topshop', industry: 'Fashion', stance: 'Taiwan' },
 
-  // esports
+  // Esports
   { company_name: 'fnatic', industry: 'Esports', stance: 'China' },
+
   // Insurance
   { company_name: 'Allianz', industry: 'Insurance', stance: 'China' },
   { company_name: 'AXA', industry: 'Insurance', stance: 'China' },
+
   // Chemicals
   { company_name: 'BASF', industry: 'Chemicals', stance: 'Taiwan' },
+
   // Financial Services
   {
     company_name: 'Mastercard',
@@ -151,6 +156,7 @@ export const data = [
     industry: 'Financial Services',
     stance: 'Taiwan Region'
   },
+
   // Other
   { company_name: 'UPS', industry: 'Other', stance: 'China' },
   { company_name: 'Moleskine', industry: 'Other', stance: 'China' }

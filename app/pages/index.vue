@@ -131,7 +131,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { data as importData } from '@/data'
 import PieChart from '@/components/pie.vue'
 import DataTable from '@/components/DataTable.vue'
@@ -139,8 +139,17 @@ import SvgIcon from '@/components/SvgIcon.vue'
 import { mdiChevronDown, mdiChevronUp, mdiMagnify, mdiFilter, mdiGithub } from '@mdi/js'
 import uniqWith from 'lodash.uniqwith'
 import isEqual from 'lodash.isequal'
+import type { Company, TableColumn, ChartData, Stance } from '@/types'
 
 const data = uniqWith(importData, isEqual)
+
+interface StancesWithAmount {
+  [key: string]: number
+}
+
+interface ColorMapping {
+  [key: string]: string
+}
 
 export default {
   components: {
@@ -150,9 +159,9 @@ export default {
   },
   data() {
     return {
-      search: '',
-      selectedIndustry: undefined,
-      selectedStance: undefined,
+      search: '' as string,
+      selectedIndustry: undefined as string | undefined,
+      selectedStance: undefined as Stance | undefined,
       data,
       columns: [
         {
@@ -170,8 +179,8 @@ export default {
           label: 'Stance',
           sortable: true
         }
-      ],
-      isScrolled: false,
+      ] as TableColumn[],
+      isScrolled: false as boolean,
       mdiChevronDown,
       mdiChevronUp,
       mdiMagnify,
@@ -180,8 +189,8 @@ export default {
     }
   },
   computed: {
-    filteredData() {
-      return this.data.filter(entry => {
+    filteredData(): Company[] {
+      return this.data.filter((entry: Company) => {
         return (
           entry.company_name
             .toLowerCase()
@@ -191,14 +200,14 @@ export default {
         )
       })
     },
-    industries() {
-      return Array.from(new Set(this.data.map(entry => entry.industry)))
+    industries(): string[] {
+      return Array.from(new Set(this.data.map((entry: Company) => entry.industry)))
     },
-    stances() {
-      return Array.from(new Set(this.data.map(entry => entry.stance)))
+    stances(): Stance[] {
+      return Array.from(new Set(this.data.map((entry: Company) => entry.stance)))
     },
-    stancesWithAmount() {
-      return this.filteredData.reduce((stances, curr) => {
+    stancesWithAmount(): StancesWithAmount {
+      return this.filteredData.reduce((stances: StancesWithAmount, curr: Company) => {
         if (stances[curr.stance]) {
           stances[curr.stance] += 1
         } else {
@@ -207,10 +216,10 @@ export default {
         return stances
       }, {})
     },
-    pieChartData() {
+    pieChartData(): ChartData {
       const labels = Object.keys(this.stancesWithAmount)
 
-      const colorMapping = {
+      const colorMapping: ColorMapping = {
         China: '#F7464A',
         Taiwan: '#018002',
         'Chinese Taipei': '#FDB45C',
@@ -220,7 +229,7 @@ export default {
       const datasets = [
         {
           data: Object.values(this.stancesWithAmount),
-          backgroundColor: labels.map(label => colorMapping[label])
+          backgroundColor: labels.map((label: string) => colorMapping[label])
         }
       ]
       return {
@@ -230,35 +239,35 @@ export default {
     }
   },
   methods: {
-    resetFields() {
+    resetFields(): void {
       this.selectedIndustry = undefined
       this.selectedStance = undefined
       this.search = ''
     },
-    isSelectedIndustry(industry) {
+    isSelectedIndustry(industry: string): boolean {
       if (!this.selectedIndustry) {
         return true
       }
       return industry.toLowerCase() === this.selectedIndustry.toLowerCase()
     },
-    isSelectedStance(stance) {
+    isSelectedStance(stance: Stance): boolean {
       if (!this.selectedStance) {
         return true
       }
       return stance.toLowerCase() === this.selectedStance.toLowerCase()
     },
-    handleScroll() {
+    handleScroll(): void {
       if (window.scrollY > 500) {
         this.isScrolled = true
       } else {
         this.isScrolled = false
       }
     },
-    scrollToTop() {
-      this.$refs.topSection?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    scrollToTop(): void {
+      (this.$refs.topSection as HTMLElement)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
     },
-    scrollToTable() {
-      this.$refs.tableSection?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    scrollToTable(): void {
+      (this.$refs.tableSection as HTMLElement)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
   },
   mounted() {

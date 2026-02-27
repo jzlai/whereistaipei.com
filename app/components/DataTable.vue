@@ -69,9 +69,11 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import SvgIcon from './SvgIcon.vue'
 import { mdiChevronUp, mdiChevronDown, mdiEmoticonSad } from '@mdi/js'
+import type { Company, TableColumn, SortDirection } from '@/types'
+import type { PropType } from 'vue'
 
 export default {
   components: {
@@ -79,11 +81,11 @@ export default {
   },
   props: {
     data: {
-      type: Array,
+      type: Array as PropType<Company[]>,
       required: true
     },
     columns: {
-      type: Array,
+      type: Array as PropType<TableColumn[]>,
       required: true
     },
     perPage: {
@@ -91,27 +93,27 @@ export default {
       default: 15
     },
     defaultSort: {
-      type: Array,
+      type: Array as PropType<[string, SortDirection]>,
       default: () => ['', 'asc']
     }
   },
   data() {
     return {
-      currentPage: 1,
-      sortField: this.defaultSort[0],
-      sortDirection: this.defaultSort[1],
+      currentPage: 1 as number,
+      sortField: this.defaultSort[0] as string,
+      sortDirection: this.defaultSort[1] as SortDirection,
       mdiChevronUp,
       mdiChevronDown,
       mdiEmoticonSad
     }
   },
   computed: {
-    sortedData() {
+    sortedData(): Company[] {
       if (!this.sortField) return this.data
 
-      return [...this.data].sort((a, b) => {
-        const aVal = a[this.sortField]
-        const bVal = b[this.sortField]
+      return [...this.data].sort((a: Company, b: Company) => {
+        const aVal = a[this.sortField as keyof Company]
+        const bVal = b[this.sortField as keyof Company]
 
         let comparison = 0
         if (aVal > bVal) comparison = 1
@@ -120,16 +122,16 @@ export default {
         return this.sortDirection === 'asc' ? comparison : -comparison
       })
     },
-    paginatedData() {
+    paginatedData(): Company[] {
       const start = (this.currentPage - 1) * this.perPage
       const end = start + this.perPage
       return this.sortedData.slice(start, end)
     },
-    totalPages() {
+    totalPages(): number {
       return Math.ceil(this.sortedData.length / this.perPage)
     },
-    displayedPages() {
-      const pages = []
+    displayedPages(): (number | string)[] {
+      const pages: (number | string)[] = []
       const total = this.totalPages
       const current = this.currentPage
 
@@ -164,7 +166,7 @@ export default {
     }
   },
   methods: {
-    toggleSort(field) {
+    toggleSort(field: keyof Company): void {
       if (this.sortField === field) {
         this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc'
       } else {
