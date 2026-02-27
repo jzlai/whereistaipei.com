@@ -31,7 +31,7 @@ npm run format
 ## Architecture
 
 ### Tech Stack
-- **Nuxt.js 3.13.0** - Vue.js framework in SPA mode
+- **Nuxt.js 4** - Vue.js framework in SPA mode
 - **Vue 3.4.0** - Using Composition API for new components, Options API maintained in existing components
 - **Bulma 1.0.0** - CSS framework for styling (no Buefy - uses custom components)
 - **Chart.js 4.4.0 / vue-chartjs 5.3.0** - For pie chart visualization
@@ -39,16 +39,16 @@ npm run format
 - **SCSS** - Main stylesheet at `assets/main.scss`
 
 ### Project Structure
-- **pages/index.vue** - Single main page containing all UI logic
+- **app/pages/index.vue** - Single main page containing all UI logic
   - Search and filter functionality for companies
   - Custom DataTable component with pagination and sorting
   - Pie chart visualization of company stances
   - Options API (for consistency with original codebase)
-- **components/pie.vue** - Chart.js pie chart component (Composition API, required by vue-chartjs v5)
-- **components/DataTable.vue** - Custom table component with sorting, pagination, striping (replaces Buefy b-table)
-- **components/SvgIcon.vue** - SVG icon component for @mdi/js icons (replaces Buefy b-icon)
-- **data/index.js** - Company data source (single export named `data`)
-- **layouts/default.vue** - Default layout wrapper
+- **app/components/pie.vue** - Chart.js pie chart component (Composition API, required by vue-chartjs v5)
+- **app/components/DataTable.vue** - Custom table component with sorting, pagination, striping (replaces Buefy b-table)
+- **app/components/SvgIcon.vue** - SVG icon component for @mdi/js icons (replaces Buefy b-icon)
+- **app/data/index.js** - Company data source (single export named `data`)
+- **app/layouts/default.vue** - Default layout wrapper
 - **app/router.options.ts** - Vue Router configuration for smooth scroll behavior
 - **public/** - Static assets (images, icons, etc.)
 
@@ -91,3 +91,8 @@ This project was migrated from Nuxt 2 to Nuxt 3 in February 2025:
 - Removed vue-scrollto in favor of native browser smooth scroll
 - Updated lifecycle hooks (`beforeDestroy` → `beforeUnmount`)
 - Moved `static/` → `public/` directory
+
+This project was migrated from Nuxt 3 to Nuxt 4 in February 2026:
+- Moved `assets/`, `components/`, `layouts/`, `pages/`, `middleware/`, `plugins/`, `data/` into `app/` (new `srcDir` default)
+- Removed `hid` prop from meta tags (Unhead v2 removed it)
+- Updated `compatibilityDate` to `2026-02-27`
