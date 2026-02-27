@@ -1,28 +1,29 @@
 {
   "name": "whereistaipei.com",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "taiwan #1",
   "author": "jzlai",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
+    "dev": "nuxt dev",
     "build": "nuxt build",
-    "start": "nuxt start",
     "generate": "nuxt generate",
-    "format": "prettier --write \"**/*.{js,jsx,json,md}\""
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "format": "prettier --write \"**/*.{js,jsx,json,md,ts,vue}\""
   },
   "dependencies": {
-    "@nuxtjs/robots": "^2.5.0",
-    "chart.js": "2.9.4",
+    "@mdi/js": "^7.4.47",
+    "@nuxtjs/robots": "^3.0.0",
+    "bulma": "^1.0.0",
+    "chart.js": "^4.4.0",
     "lodash.isequal": "4.5.0",
     "lodash.uniqwith": "4.5.0",
-    "nuxt": "2.15.8",
-    "nuxt-buefy": "0.4.13",
-    "vue-chartjs": "3.5.1",
-    "vue-scrollto": "2.20.0"
+    "nuxt": "^3.13.0",
+    "vue": "^3.4.0",
+    "vue-chartjs": "^5.3.0"
   },
   "devDependencies": {
-    "node-sass": "4.14.1",
-    "sass-loader": "10.1.1"
+    "sass": "^1.70.0"
   }
 }
