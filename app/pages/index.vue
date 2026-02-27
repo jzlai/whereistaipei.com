@@ -137,11 +137,18 @@ import PieChart from '@/components/pie.vue'
 import DataTable from '@/components/DataTable.vue'
 import SvgIcon from '@/components/SvgIcon.vue'
 import { mdiChevronDown, mdiChevronUp, mdiMagnify, mdiFilter, mdiGithub } from '@mdi/js'
-import uniqWith from 'lodash.uniqwith'
-import isEqual from 'lodash.isequal'
 import type { Company, TableColumn, ChartData, Stance } from '@/types'
 
-const data = uniqWith(importData, isEqual)
+// Deduplicate data using native JS
+const seen = new Set<string>()
+const data = importData.filter((item: Company) => {
+  const key = JSON.stringify(item)
+  if (seen.has(key)) {
+    return false
+  }
+  seen.add(key)
+  return true
+})
 
 interface StancesWithAmount {
   [key: string]: number

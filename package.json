@@ -17,15 +17,11 @@
     "@nuxtjs/robots": "^3.0.0",
     "bulma": "^1.0.0",
     "chart.js": "^4.4.0",
-    "lodash.isequal": "4.5.0",
-    "lodash.uniqwith": "4.5.0",
     "nuxt": "^4.0.0",
     "vue": "^3.4.0",
     "vue-chartjs": "^5.3.0"
   },
   "devDependencies": {
-    "@types/lodash.isequal": "^4.5.8",
-    "@types/lodash.uniqwith": "^4.5.9",
     "@types/node": "^25.3.2",
     "sass": "^1.70.0",
     "typescript": "^5.9.3"
