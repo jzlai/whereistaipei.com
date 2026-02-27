@@ -1,63 +1,13 @@
-// Import Bulma's core
-@import '~bulma/sass/utilities/_all';
+// Import Bulma
+@use 'bulma';
 
-// Set your colors
-$primary: #018002;
-$primary-invert: findColorInvert($primary);
-$twitter: #4099ff;
-$twitter-invert: findColorInvert($twitter);
+// Override primary color using CSS custom properties
+:root {
+  --bulma-primary-h: 120deg;
+  --bulma-primary-s: 100%;
+  --bulma-primary-l: 25%;
+}
 
-// Setup $colors to use as bulma classes (e.g. 'is-twitter')
-$colors: (
-  'white': (
-    $white,
-    $black
-  ),
-  'black': (
-    $black,
-    $white
-  ),
-  'light': (
-    $light,
-    $light-invert
-  ),
-  'dark': (
-    $dark,
-    $dark-invert
-  ),
-  'primary': (
-    $primary,
-    $primary-invert
-  ),
-  'info': (
-    $info,
-    $info-invert
-  ),
-  'success': (
-    $success,
-    $success-invert
-  ),
-  'warning': (
-    $warning,
-    $warning-invert
-  ),
-  'danger': (
-    $danger,
-    $danger-invert
-  ),
-  'twitter': (
-    $twitter,
-    $twitter-invert
-  )
-);
-
-// Links
-$link: $primary;
-$link-invert: $primary-invert;
-$link-focus-border: $primary;
-
-$footer-padding: 2rem 1.5rem 2rem;
-
-// Import Bulma and Buefy styles
-@import '~bulma';
-@import '~buefy/src/scss/buefy';
+html {
+  scroll-behavior: smooth;
+}

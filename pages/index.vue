@@ -10,12 +10,11 @@
           <h6 class="subtitle is-6 has-text-white">
             Scroll down for a list of companies and their views on this topic...
           </h6>
-          <a href="#" v-scroll-to="'#table'">
-            <b-icon
-              icon="chevron-down"
-              size="is-large"
-              type="is-white"
-              class="scrollToButton"
+          <a href="#table">
+            <SvgIcon
+              :path="mdiChevronDown"
+              :size="48"
+              class="scrollToButton has-text-white"
             />
           </a>
         </div>
@@ -26,68 +25,72 @@
         <div class="container has-text-centered" style="width:100%">
           <div class="columns">
             <div class="column is-7">
-              <b-input
-                v-model="search"
-                placeholder="Search"
-                icon="magnify"
-                clearable
-                style="margin-bottom: 15px"
-              />
+              <div class="field">
+                <p class="control has-icons-left">
+                  <input
+                    v-model="search"
+                    class="input"
+                    type="text"
+                    placeholder="Search"
+                  />
+                  <span class="icon is-left">
+                    <SvgIcon :path="mdiMagnify" />
+                  </span>
+                </p>
+              </div>
             </div>
             <div class="column is-2">
-              <b-select
-                v-model="selectedIndustry"
-                placeholder="Filter by industry"
-                icon="filter"
-                expanded
-              >
-                <option
-                  v-for="industry in industries"
-                  :value="industry"
-                  :key="industry"
-                >
-                  {{ industry }}
-                </option>
-              </b-select>
+              <div class="field">
+                <div class="control has-icons-left">
+                  <div class="select is-fullwidth">
+                    <select v-model="selectedIndustry">
+                      <option :value="undefined">Filter by industry</option>
+                      <option
+                        v-for="industry in industries"
+                        :value="industry"
+                        :key="industry"
+                      >
+                        {{ industry }}
+                      </option>
+                    </select>
+                  </div>
+                  <span class="icon is-left">
+                    <SvgIcon :path="mdiFilter" />
+                  </span>
+                </div>
+              </div>
             </div>
             <div class="column is-2">
-              <b-select
-                v-model="selectedStance"
-                placeholder="Filter by stance"
-                icon="filter"
-                expanded
-              >
-                <option v-for="stance in stances" :value="stance" :key="stance">
-                  {{ stance }}
-                </option>
-              </b-select>
+              <div class="field">
+                <div class="control has-icons-left">
+                  <div class="select is-fullwidth">
+                    <select v-model="selectedStance">
+                      <option :value="undefined">Filter by stance</option>
+                      <option v-for="stance in stances" :value="stance" :key="stance">
+                        {{ stance }}
+                      </option>
+                    </select>
+                  </div>
+                  <span class="icon is-left">
+                    <SvgIcon :path="mdiFilter" />
+                  </span>
+                </div>
+              </div>
             </div>
             <div class="column is-1">
-              <b-button class="is-primary" @click="resetFields">Reset</b-button>
+              <button class="button is-primary is-fullwidth" @click="resetFields">
+                Reset
+              </button>
             </div>
           </div>
           <div class="columns">
             <div class="column">
-              <b-table
+              <DataTable
                 :data="filteredData"
                 :columns="columns"
                 :default-sort="['company_name', 'asc']"
-                :paginated="true"
-                :striped="true"
                 :per-page="15"
-                sort-icon="chevron-down"
-              >
-                <template slot="empty">
-                  <section class="section">
-                    <div class="content has-text-grey has-text-centered">
-                      <p>
-                        <b-icon icon="emoticon-sad" size="is-large"></b-icon>
-                      </p>
-                      <p>Nothing here.</p>
-                    </div>
-                  </section>
-                </template>
-              </b-table>
+              />
             </div>
             <div class="column is-4">
               <pie-chart :chart-data="pieChartData" />
@@ -95,12 +98,11 @@
           </div>
         </div>
       </div>
-      <a v-scroll-to="'#top'">
-        <b-icon
-          icon="chevron-up"
-          size="is-large"
-          :class="['scrollToTopButton', isScrolled ? 'show' : '']"
-          type="is-white"
+      <a href="#top">
+        <SvgIcon
+          :path="mdiChevronUp"
+          :size="48"
+          :class="['scrollToTopButton', 'has-text-white', isScrolled ? 'show' : '']"
         />
       </a>
 
@@ -120,7 +122,7 @@
               target="_blank"
               rel="noopener noreferrer"
             >
-              <b-icon icon="github" />
+              <SvgIcon :path="mdiGithub" :size="20" />
             </a>
           </p>
         </div>
@@ -131,8 +133,10 @@
 
 <script>
 import { data as importData } from '@/data'
-import VueScrollTo from 'vue-scrollto'
-import PieChart from '@/components/pie'
+import PieChart from '@/components/pie.vue'
+import DataTable from '@/components/DataTable.vue'
+import SvgIcon from '@/components/SvgIcon.vue'
+import { mdiChevronDown, mdiChevronUp, mdiMagnify, mdiFilter, mdiGithub } from '@mdi/js'
 import uniqWith from 'lodash.uniqwith'
 import isEqual from 'lodash.isequal'
 
@@ -140,7 +144,9 @@ const data = uniqWith(importData, isEqual)
 
 export default {
   components: {
-    PieChart
+    PieChart,
+    DataTable,
+    SvgIcon
   },
   data() {
     return {
@@ -165,7 +171,12 @@ export default {
           sortable: true
         }
       ],
-      isScrolled: false
+      isScrolled: false,
+      mdiChevronDown,
+      mdiChevronUp,
+      mdiMagnify,
+      mdiFilter,
+      mdiGithub
     }
   },
   computed: {
@@ -244,10 +255,10 @@ export default {
       }
     }
   },
-  beforeMount() {
+  mounted() {
     window.addEventListener('scroll', this.handleScroll)
   },
-  beforeDestroy() {
+  beforeUnmount() {
     window.removeEventListener('scroll', this.handleScroll)
   }
 }
@@ -279,6 +290,7 @@ export default {
   border-radius: 4px;
   background-color: rgba(0, 0, 0, 0.85);
   visibility: hidden;
+  padding: 0.5rem;
 }
 .show {
   visibility: visible;
