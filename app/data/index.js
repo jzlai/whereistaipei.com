@@ -26,7 +26,6 @@ export const data = [
   { company_name: 'Air France', industry: 'Aviation', stance: 'China' },
   { company_name: 'KLM', industry: 'Aviation', stance: 'China' },
   { company_name: 'Lufthansa', industry: 'Aviation', stance: 'China' },
-  { company_name: 'Turkish Airlines', industry: 'Aviation', stance: 'China' },
   { company_name: 'Emirates', industry: 'Aviation', stance: 'China' },
   { company_name: 'Qatar Airways', industry: 'Aviation', stance: 'China' },
   {
