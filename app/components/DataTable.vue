@@ -40,15 +40,15 @@
     <nav v-if="totalPages > 1" class="pagination is-centered" role="navigation" aria-label="pagination">
       <a
         class="pagination-previous"
+        :class="{ 'is-disabled': currentPage === 1 }"
         @click="currentPage > 1 ? currentPage-- : null"
-        :disabled="currentPage === 1"
       >
         Previous
       </a>
       <a
         class="pagination-next"
+        :class="{ 'is-disabled': currentPage === totalPages }"
         @click="currentPage < totalPages ? currentPage++ : null"
-        :disabled="currentPage === totalPages"
       >
         Next
       </a>

@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { Pie } from 'vue-chartjs'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 
@@ -14,9 +14,31 @@ const props = defineProps({
   options: { type: Object, default: () => ({}) }
 })
 
+const isDarkMode = ref(false)
+
+const updateDarkMode = () => {
+  isDarkMode.value = window.matchMedia('(prefers-color-scheme: dark)').matches
+}
+
+onMounted(() => {
+  updateDarkMode()
+  const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+  mediaQuery.addEventListener('change', updateDarkMode)
+  onUnmounted(() => {
+    mediaQuery.removeEventListener('change', updateDarkMode)
+  })
+})
+
 const chartOptions = computed(() => ({
   responsive: true,
   maintainAspectRatio: true,
+  plugins: {
+    legend: {
+      labels: {
+        color: isDarkMode.value ? '#f5f5f5' : '#363636'
+      }
+    }
+  },
   ...props.options
 }))
 </script>

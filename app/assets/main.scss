@@ -1,13 +1,45 @@
 // Import Bulma
 @use 'bulma';
 
-// Override primary color using CSS custom properties
-:root {
-  --bulma-primary-h: 120deg;
-  --bulma-primary-s: 100%;
-  --bulma-primary-l: 25%;
-}
-
 html {
   scroll-behavior: smooth;
+}
+
+// Override Bulma colors with direct CSS
+.button.is-primary {
+  background-color: #018002;
+  border-color: transparent;
+  color: #fff;
+}
+
+.button.is-primary:hover {
+  background-color: #015a01;
+  border-color: transparent;
+  color: #fff;
+}
+
+a {
+  color: #018002;
+}
+
+a:hover {
+  color: #015a01;
+}
+
+.pagination-link.is-current {
+  background-color: #018002;
+  border-color: #018002;
+}
+
+.pagination-previous:hover:not(.is-disabled),
+.pagination-next:hover:not(.is-disabled),
+.pagination-link:hover:not(.is-current) {
+  border-color: #018002;
+  color: #018002;
+}
+
+.pagination-previous.is-disabled,
+.pagination-next.is-disabled {
+  pointer-events: none;
+  opacity: 0.5;
 }
