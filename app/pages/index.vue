@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="hero is-fullheight has-bg-img" id="top">
+    <section ref="topSection" class="hero is-fullheight has-bg-img">
       <div class="hero-body background">
         <div class="container has-text-centered">
           <h1 class="title is-1 has-text-white">Where is Taipei?</h1>
@@ -10,17 +10,17 @@
           <h6 class="subtitle is-6 has-text-white">
             Scroll down for a list of companies and their views on this topic...
           </h6>
-          <a href="#table">
+          <button @click="scrollToTable" class="scroll-button">
             <SvgIcon
               :path="mdiChevronDown"
               :size="48"
               class="scrollToButton has-text-white"
             />
-          </a>
+          </button>
         </div>
       </div>
     </section>
-    <section class="hero is-fullheight" id="table">
+    <section ref="tableSection" class="hero is-fullheight">
       <div class="hero-body items-top">
         <div class="container has-text-centered" style="width:100%">
           <div class="columns">
@@ -98,13 +98,13 @@
           </div>
         </div>
       </div>
-      <a href="#top">
+      <button @click="scrollToTop" class="scroll-button">
         <SvgIcon
           :path="mdiChevronUp"
           :size="48"
           :class="['scrollToTopButton', 'has-text-white', isScrolled ? 'show' : '']"
         />
-      </a>
+      </button>
 
       <footer class="footer">
         <div class="content has-text-centered">
@@ -253,6 +253,12 @@ export default {
       } else {
         this.isScrolled = false
       }
+    },
+    scrollToTop() {
+      this.$refs.topSection?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    },
+    scrollToTable() {
+      this.$refs.tableSection?.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
   },
   mounted() {
@@ -274,6 +280,14 @@ export default {
 
 .background {
   background-color: rgba(0, 0, 0, 0.85);
+}
+
+.scroll-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
 }
 
 .scrollToButton {
