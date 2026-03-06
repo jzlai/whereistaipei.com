@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Analytics />
     <section ref="topSection" class="hero is-fullheight has-bg-img">
       <div class="hero-body background">
         <div class="container has-text-centered">
@@ -148,6 +149,7 @@ import { data } from '@/data'
 import PieChart from '@/components/pie.vue'
 import DataTable from '@/components/DataTable.vue'
 import SvgIcon from '@/components/SvgIcon.vue'
+import { Analytics } from '@vercel/analytics/nuxt'
 import {
   mdiChevronDown,
   mdiChevronUp,
