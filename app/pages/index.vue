@@ -1,6 +1,7 @@
 <template>
   <div>
     <Analytics />
+    <SpeedInsights />
     <section ref="topSection" class="hero is-fullheight has-bg-img">
       <div class="hero-body background">
         <div class="container has-text-centered">
@@ -150,6 +151,7 @@ import PieChart from '@/components/pie.vue'
 import DataTable from '@/components/DataTable.vue'
 import SvgIcon from '@/components/SvgIcon.vue'
 import { Analytics } from '@vercel/analytics/nuxt'
+import { SpeedInsights } from '@vercel/speed-insights/nuxt'
 import {
   mdiChevronDown,
   mdiChevronUp,
