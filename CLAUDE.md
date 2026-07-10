@@ -26,7 +26,12 @@ npm run preview
 
 # Format code with Prettier
 npm run format
+
+# Type-check the project (not wired to a package.json script)
+npx nuxi typecheck
 ```
+
+There is no lint script and no test suite in this repo — `npm run format` (Prettier) and `npx nuxi typecheck` are the only automated checks available.
 
 ## Architecture
 

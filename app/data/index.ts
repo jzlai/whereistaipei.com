@@ -37,6 +37,19 @@ const rawData: Company[] = [
     stance: 'China',
   },
   { company_name: 'Air China', industry: 'Aviation', stance: 'China' },
+  {
+    company_name: 'All Nippon Airways (ANA)',
+    industry: 'Aviation',
+    stance: 'Taiwan',
+  },
+  { company_name: 'Japan Airlines', industry: 'Aviation', stance: 'Taiwan' },
+  { company_name: 'American Airlines', industry: 'Aviation', stance: 'Taiwan' },
+  { company_name: 'Air New Zealand', industry: 'Aviation', stance: 'Taiwan' },
+  {
+    company_name: 'Finnair',
+    industry: 'Aviation',
+    stance: 'Taiwan Region',
+  },
 
   // Automotive
   { company_name: 'Citroen', industry: 'Automotive', stance: 'China' },
@@ -62,6 +75,7 @@ const rawData: Company[] = [
   { company_name: 'Mazda', industry: 'Automotive', stance: 'Taiwan ROC' },
   { company_name: 'Tesla', industry: 'Automotive', stance: 'Taiwan ROC' },
   { company_name: 'Lexus', industry: 'Automotive', stance: 'Taiwan' },
+  { company_name: 'Bentley', industry: 'Automotive', stance: 'Taiwan' },
 
   // Technology
   { company_name: 'Nintendo', industry: 'Technology', stance: 'Taiwan' },
@@ -100,6 +114,12 @@ const rawData: Company[] = [
   { company_name: 'Asus', industry: 'Technology', stance: 'Taiwan' },
   { company_name: 'Kuka', industry: 'Technology', stance: 'China' },
   { company_name: 'Infineon', industry: 'Technology', stance: 'Taiwan Region' },
+  { company_name: 'Xiaomi', industry: 'Technology', stance: 'Taiwan' },
+  { company_name: 'OPPO', industry: 'Technology', stance: 'Taiwan' },
+  { company_name: 'DJI', industry: 'Technology', stance: 'Taiwan Region' },
+  { company_name: 'HP', industry: 'Technology', stance: 'Taiwan' },
+  { company_name: 'Philips', industry: 'Technology', stance: 'Taiwan' },
+  { company_name: 'Zoom', industry: 'Technology', stance: 'Taiwan' },
 
   // Food and beverages
   { company_name: 'Nestle', industry: 'Food and beverages', stance: 'Taiwan' },
@@ -123,6 +143,36 @@ const rawData: Company[] = [
     industry: 'Food and beverages',
     stance: 'Taiwan',
   },
+  {
+    company_name: 'Starbucks',
+    industry: 'Food and beverages',
+    stance: 'Taiwan',
+  },
+  {
+    company_name: 'Unilever',
+    industry: 'Food and beverages',
+    stance: 'Taiwan',
+  },
+  {
+    company_name: 'Mars, Incorporated',
+    industry: 'Food and beverages',
+    stance: 'Taiwan Region',
+  },
+  {
+    company_name: 'AB InBev',
+    industry: 'Food and beverages',
+    stance: 'Taiwan Region',
+  },
+  {
+    company_name: 'Heineken',
+    industry: 'Food and beverages',
+    stance: 'Taiwan',
+  },
+  {
+    company_name: "Domino's Pizza",
+    industry: 'Food and beverages',
+    stance: 'Taiwan Region',
+  },
 
   // Fashion
   { company_name: 'Uniqlo', industry: 'Fashion', stance: 'Taiwan' },
@@ -135,6 +185,48 @@ const rawData: Company[] = [
   { company_name: 'Mango', industry: 'Fashion', stance: 'Taiwan Region' },
   { company_name: "Levi's", industry: 'Fashion', stance: 'Taiwan Region' },
   { company_name: 'Topshop', industry: 'Fashion', stance: 'Taiwan' },
+  {
+    company_name: 'Under Armour',
+    industry: 'Fashion',
+    stance: 'Taiwan Region',
+  },
+
+  // Luxury Goods
+  {
+    company_name: 'Balenciaga',
+    industry: 'Luxury Goods',
+    stance: 'Taiwan Region',
+  },
+  { company_name: 'Tiffany & Co.', industry: 'Luxury Goods', stance: 'Taiwan' },
+  {
+    company_name: 'Versace',
+    industry: 'Luxury Goods',
+    stance: 'Taiwan Region',
+  },
+  { company_name: 'Prada', industry: 'Luxury Goods', stance: 'Taiwan Region' },
+  { company_name: 'Swatch', industry: 'Luxury Goods', stance: 'Taiwan Region' },
+  { company_name: 'Omega', industry: 'Luxury Goods', stance: 'Taiwan Region' },
+  {
+    company_name: 'Cartier',
+    industry: 'Luxury Goods',
+    stance: 'Taiwan Region',
+  },
+
+  // Beauty and Cosmetics
+  {
+    company_name: "L'Oréal",
+    industry: 'Beauty and Cosmetics',
+    stance: 'Taiwan Region',
+  },
+  {
+    company_name: "L'Occitane",
+    industry: 'Beauty and Cosmetics',
+    stance: 'Taiwan Region',
+  },
+
+  // Retail
+  { company_name: 'IKEA', industry: 'Retail', stance: 'Taiwan' },
+  { company_name: 'Costco', industry: 'Retail', stance: 'Taiwan' },
 
   // Esports
   { company_name: 'fnatic', industry: 'Esports', stance: 'China' },
@@ -142,6 +234,9 @@ const rawData: Company[] = [
   // Insurance
   { company_name: 'Allianz', industry: 'Insurance', stance: 'China' },
   { company_name: 'AXA', industry: 'Insurance', stance: 'China' },
+  { company_name: 'AIG', industry: 'Insurance', stance: 'Taiwan' },
+  { company_name: 'Chubb', industry: 'Insurance', stance: 'Taiwan' },
+  { company_name: 'Prudential plc', industry: 'Insurance', stance: 'Taiwan' },
 
   // Chemicals
   { company_name: 'BASF', industry: 'Chemicals', stance: 'Taiwan' },
@@ -156,6 +251,60 @@ const rawData: Company[] = [
     company_name: 'Visa',
     industry: 'Financial Services',
     stance: 'Taiwan Region',
+  },
+  { company_name: 'HSBC', industry: 'Financial Services', stance: 'Taiwan' },
+  {
+    company_name: 'Deutsche Bank',
+    industry: 'Financial Services',
+    stance: 'Taiwan',
+  },
+  { company_name: 'UBS', industry: 'Financial Services', stance: 'Taiwan' },
+  { company_name: 'PayPal', industry: 'Financial Services', stance: 'Taiwan' },
+  {
+    company_name: 'Citigroup (Citibank)',
+    industry: 'Financial Services',
+    stance: 'Taiwan',
+  },
+  {
+    company_name: 'Bank of America',
+    industry: 'Financial Services',
+    stance: 'Taiwan',
+  },
+  {
+    company_name: 'JPMorgan Chase',
+    industry: 'Financial Services',
+    stance: 'Taiwan Region',
+  },
+  {
+    company_name: 'BNP Paribas',
+    industry: 'Financial Services',
+    stance: 'Taiwan Region',
+  },
+
+  // Hospitality
+  { company_name: 'Hilton', industry: 'Hospitality', stance: 'Taiwan Region' },
+  { company_name: 'Accor', industry: 'Hospitality', stance: 'Taiwan Region' },
+  {
+    company_name: 'InterContinental Hotels Group (IHG)',
+    industry: 'Hospitality',
+    stance: 'Taiwan',
+  },
+  { company_name: 'Hyatt', industry: 'Hospitality', stance: 'Taiwan' },
+  { company_name: 'Booking.com', industry: 'Hospitality', stance: 'Taiwan' },
+
+  // Telecommunications
+  { company_name: 'AT&T', industry: 'Telecommunications', stance: 'Taiwan' },
+  { company_name: 'Verizon', industry: 'Telecommunications', stance: 'Taiwan' },
+  {
+    company_name: 'T-Mobile',
+    industry: 'Telecommunications',
+    stance: 'Taiwan',
+  },
+  { company_name: 'Orange', industry: 'Telecommunications', stance: 'Taiwan' },
+  {
+    company_name: 'China Mobile',
+    industry: 'Telecommunications',
+    stance: 'China',
   },
 
   // Other
