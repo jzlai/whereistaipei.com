@@ -1,16 +1,31 @@
 export default defineNuxtConfig({
-  ssr: false,
+  ssr: true,
 
   app: {
     head: {
       title: 'Where is Taipei?',
+      htmlAttrs: { lang: 'en' },
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: 'Tracking how companies refer to Taiwan' }
+        {
+          name: 'description',
+          content: 'Tracking how companies refer to Taiwan',
+        },
+        { property: 'og:title', content: 'Where is Taipei?' },
+        {
+          property: 'og:description',
+          content: 'Tracking how companies refer to Taiwan',
+        },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:url', content: 'https://whereistaipei.com/' },
+        { name: 'twitter:card', content: 'summary' },
       ],
-      link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
-    }
+      link: [
+        { rel: 'canonical', href: 'https://whereistaipei.com/' },
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      ],
+    },
   },
 
   css: ['@/assets/main.scss'],
@@ -22,13 +37,12 @@ export default defineNuxtConfig({
       preprocessorOptions: {
         scss: {
           additionalData: `@use "sass:math";`,
-          api: 'modern-compiler'
-        }
-      }
-    }
+        },
+      },
+    },
   },
 
-  devtools: { enabled: true },
+  devtools: { enabled: false },
 
-  compatibilityDate: '2026-02-27'
+  compatibilityDate: '2026-02-27',
 })

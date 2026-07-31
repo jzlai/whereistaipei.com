@@ -1,18 +1,27 @@
 <template>
   <div>
-    <Analytics />
-    <SpeedInsights />
-    <section ref="topSection" class="hero is-fullheight has-bg-img">
+    <a class="skip-link" href="#company-data">Skip to company data</a>
+    <section
+      ref="topSection"
+      class="hero is-fullheight has-bg-img"
+      aria-labelledby="page-title"
+    >
       <div class="hero-body background">
         <div class="container has-text-centered">
-          <h1 class="title is-1 has-text-white">Where is Taipei?</h1>
-          <h3 class="subtitle is-3 has-text-white">
+          <h1 id="page-title" class="title is-1 has-text-white">
+            Where is Taipei?
+          </h1>
+          <h2 class="subtitle is-3 has-text-white">
             Taipei is the capital of Taiwan.
-          </h3>
-          <h6 class="subtitle is-6 has-text-white">
+          </h2>
+          <p class="subtitle is-6 has-text-white">
             Scroll down for a list of companies and their views on this topic...
-          </h6>
-          <button @click="scrollToTable" class="scroll-button">
+          </p>
+          <button
+            class="scroll-button"
+            aria-label="Scroll to company data"
+            @click="scrollToTable"
+          >
             <SvgIcon
               :path="mdiChevronDown"
               :size="48"
@@ -22,17 +31,26 @@
         </div>
       </div>
     </section>
-    <section ref="tableSection" class="hero is-fullheight">
+    <main
+      id="company-data"
+      ref="tableSection"
+      class="hero is-fullheight"
+      tabindex="-1"
+    >
       <div class="hero-body items-top">
         <div class="container has-text-centered" style="width: 100%">
           <div class="columns">
             <div class="column is-7">
               <div class="field">
                 <p class="control has-icons-left">
+                  <label class="label has-text-left" for="company-search"
+                    >Search companies</label
+                  >
                   <input
+                    id="company-search"
                     v-model="search"
                     class="input"
-                    type="text"
+                    type="search"
                     placeholder="Search"
                   />
                   <span class="icon is-left">
@@ -45,7 +63,10 @@
               <div class="field">
                 <div class="control has-icons-left">
                   <div class="select is-fullwidth">
-                    <select v-model="selectedIndustry">
+                    <label class="sr-only" for="industry-filter"
+                      >Filter by industry</label
+                    >
+                    <select id="industry-filter" v-model="selectedIndustry">
                       <option :value="undefined">Filter by industry</option>
                       <option
                         v-for="industry in industries"
@@ -66,7 +87,10 @@
               <div class="field">
                 <div class="control has-icons-left">
                   <div class="select is-fullwidth">
-                    <select v-model="selectedStance">
+                    <label class="sr-only" for="stance-filter"
+                      >Filter by stance</label
+                    >
+                    <select id="stance-filter" v-model="selectedStance">
                       <option :value="undefined">Filter by stance</option>
                       <option
                         v-for="stance in stances"
@@ -102,12 +126,21 @@
               />
             </div>
             <div class="column is-4">
-              <pie-chart :chart-data="pieChartData" />
+              <ClientOnly>
+                <pie-chart :chart-data="pieChartData" />
+                <template #fallback>
+                  <p class="has-text-grey">Loading chart…</p>
+                </template>
+              </ClientOnly>
             </div>
           </div>
         </div>
       </div>
-      <button @click="scrollToTop" class="scroll-button">
+      <button
+        @click="scrollToTop"
+        class="scroll-button"
+        aria-label="Scroll to top"
+      >
         <SvgIcon
           :path="mdiChevronUp"
           :size="48"
@@ -140,7 +173,7 @@
           </p>
         </div>
       </footer>
-    </section>
+    </main>
   </div>
 </template>
 
@@ -150,8 +183,6 @@ import { data } from '@/data'
 import PieChart from '@/components/pie.vue'
 import DataTable from '@/components/DataTable.vue'
 import SvgIcon from '@/components/SvgIcon.vue'
-import { Analytics } from '@vercel/analytics/nuxt'
-import { SpeedInsights } from '@vercel/speed-insights/nuxt'
 import {
   mdiChevronDown,
   mdiChevronUp,
@@ -288,6 +319,32 @@ onBeforeUnmount(() => {
 
 .background {
   background-color: rgba(0, 0, 0, 0.85);
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 2000;
+  padding: 0.75rem 1rem;
+  background: #fff;
+  color: #015a01;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .scroll-button {

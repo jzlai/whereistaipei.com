@@ -6,21 +6,43 @@
           <th
             v-for="column in columns"
             :key="column.field"
-            @click="column.sortable ? toggleSort(column.field) : null"
-            :style="column.sortable ? 'cursor: pointer;' : ''"
+            scope="col"
+            :aria-sort="
+              column.sortable && sortField === column.field
+                ? sortDirection === 'asc'
+                  ? 'ascending'
+                  : 'descending'
+                : undefined
+            "
           >
-            {{ column.label }}
-            <span v-if="column.sortable && sortField === column.field">
-              <SvgIcon
-                :path="sortDirection === 'asc' ? mdiChevronUp : mdiChevronDown"
-                :size="16"
-              />
-            </span>
+            <button
+              v-if="column.sortable"
+              class="sort-button"
+              type="button"
+              @click="toggleSort(column.field)"
+            >
+              {{ column.label }}
+              <span v-if="sortField === column.field" aria-hidden="true">
+                <SvgIcon
+                  :path="
+                    sortDirection === 'asc' ? mdiChevronUp : mdiChevronDown
+                  "
+                  :size="16"
+                />
+              </span>
+              <span class="sr-only">
+                Sort {{ sortDirection === 'asc' ? 'descending' : 'ascending' }}
+              </span>
+            </button>
+            <template v-else>{{ column.label }}</template>
           </th>
         </tr>
       </thead>
       <tbody v-if="paginatedData.length > 0">
-        <tr v-for="(row, index) in paginatedData" :key="index">
+        <tr
+          v-for="row in paginatedData"
+          :key="`${row.company_name}-${row.industry}`"
+        >
           <td v-for="column in columns" :key="column.field">
             {{ row[column.field] }}
           </td>
@@ -43,30 +65,36 @@
       role="navigation"
       aria-label="pagination"
     >
-      <a
+      <button
         class="pagination-previous"
         :class="{ 'is-disabled': currentPage === 1 }"
-        @click="currentPage > 1 ? currentPage-- : null"
+        type="button"
+        :disabled="currentPage === 1"
+        @click="currentPage--"
       >
         Previous
-      </a>
-      <a
+      </button>
+      <button
         class="pagination-next"
         :class="{ 'is-disabled': currentPage === totalPages }"
-        @click="currentPage < totalPages ? currentPage++ : null"
+        type="button"
+        :disabled="currentPage === totalPages"
+        @click="currentPage++"
       >
         Next
-      </a>
+      </button>
       <ul class="pagination-list">
         <li v-for="page in displayedPages" :key="page">
-          <a
+          <button
             v-if="page !== '...'"
             class="pagination-link"
             :class="{ 'is-current': page === currentPage }"
+            type="button"
+            :aria-current="page === currentPage ? 'page' : undefined"
             @click="typeof page === 'number' ? (currentPage = page) : null"
           >
             {{ page }}
-          </a>
+          </button>
           <span v-else class="pagination-ellipsis">&hellip;</span>
         </li>
       </ul>
@@ -174,6 +202,27 @@ watch(
 </script>
 
 <style scoped>
+.sort-button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .data-table {
   margin-bottom: 1.5rem;
 }
