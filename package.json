@@ -29,5 +29,8 @@
     "sass": "^1.70.0",
     "typescript": "^5.9.3",
     "vue-tsc": "^3.3.9"
+  },
+  "overrides": {
+    "brace-expansion": "5.0.9"
   }
 }
