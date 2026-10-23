@@ -5,23 +5,36 @@
 
 ## Contribution
 
-If you notice any company missing please don't hestitate to open a [Pull Request](https://github.com/jzlai/whereistaipei.com/pulls). All data can be found [here](data/index.js).
+If you notice any company missing please don't hesitate to open a [Pull Request](https://github.com/jzlai/whereistaipei.com/pulls). All data can be found [here](app/data/index.ts).
+
+Each entry looks like this:
+
+```ts
+{ company_name: 'Company Name', industry: 'Industry', stance: 'Taiwan' }
+```
+
+`stance` is one of `Taiwan`, `China`, `Chinese Taipei`, `Taiwan ROC` or `Taiwan Region`. Exact duplicate entries are removed automatically.
 
 ## Build Setup
 
 ```bash
 # install dependencies
-$ yarn install
+$ npm install
 
 # serve with hot reload at localhost:3000
-$ yarn dev
+$ npm run dev
 
-# build for production and launch server
-$ yarn build
-$ yarn start
+# build for production
+$ npm run build
+
+# preview the production build
+$ npm run preview
 
 # generate static project
-$ yarn generate
+$ npm run generate
+
+# format code
+$ npm run format
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+For detailed explanation on how things work, check out [Nuxt docs](https://nuxt.com/docs).

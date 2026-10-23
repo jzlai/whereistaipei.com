@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Nuxt.js 3 static site that displays companies and their positions on Taiwan/Taipei. The site uses a single-page application (SPA) mode with client-side rendering only (`ssr: false`).
+This is a Nuxt 4 site that displays companies and their positions on Taiwan/Taipei. SSR is enabled (`ssr: true` in `nuxt.config.ts`); the pie chart is wrapped in `<ClientOnly>` and Vercel analytics load via a `.client.ts` plugin.
 
 ## Development Commands
 
@@ -36,12 +36,13 @@ There is no lint script and no test suite in this repo — `npm run format` (Pre
 ## Architecture
 
 ### Tech Stack
-- **Nuxt.js 4** - Vue.js framework in SPA mode
-- **Vue 3.4.0** - Using Composition API with `<script setup lang="ts">`
-- **TypeScript 5.9.3** - Fully typed with strict mode enabled
-- **Bulma 1.0.0** - CSS framework for styling (no Buefy - uses custom components)
-- **Chart.js 4.4.0 / vue-chartjs 5.3.0** - For pie chart visualization
+- **Nuxt 4** - Vue.js framework, SSR enabled, `@nuxtjs/robots` module
+- **Vue 3** - Using Composition API with `<script setup lang="ts">`
+- **TypeScript 5.9** - Fully typed with strict mode enabled
+- **Bulma 1** - CSS framework for styling (no Buefy - uses custom components)
+- **Chart.js 4 / vue-chartjs 5** - For pie chart visualization
 - **@mdi/js** - Material Design Icons (tree-shakeable)
+- **@vercel/analytics / @vercel/speed-insights** - Loaded client-side by `app/plugins/vercel-insights.client.ts`
 - **SCSS** - Main stylesheet at `assets/main.scss`
 
 ### Project Structure
@@ -59,6 +60,7 @@ There is no lint script and no test suite in this repo — `npm run format` (Pre
 - **app/types/index.ts** - TypeScript type definitions for Company, TableColumn, ChartData, etc.
 - **app/layouts/default.vue** - Default layout wrapper
 - **app/router.options.ts** - Vue Router configuration for smooth scroll behavior
+- **app/plugins/vercel-insights.client.ts** - Client-only Vercel analytics and speed insights
 - **public/** - Static assets (images, icons, etc.)
 
 ### Data Structure
