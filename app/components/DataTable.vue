@@ -39,10 +39,7 @@
         </tr>
       </thead>
       <tbody v-if="paginatedData.length > 0">
-        <tr
-          v-for="row in paginatedData"
-          :key="`${row.company_name}-${row.industry}`"
-        >
+        <tr v-for="(row, index) in paginatedData" :key="index">
           <td v-for="column in columns" :key="column.field">
             {{ row[column.field] }}
           </td>
@@ -102,47 +99,53 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends object">
 import { ref, computed, watch } from 'vue'
 import SvgIcon from './SvgIcon.vue'
 import { mdiChevronUp, mdiChevronDown, mdiEmoticonSad } from '@mdi/js'
-import type { Company, TableColumn, SortDirection } from '@/types'
+import type { TableColumn, SortDirection } from '@/types'
 
 // Props
 interface Props {
-  data: Company[]
-  columns: TableColumn[]
+  data: T[]
+  columns: TableColumn<T>[]
   perPage?: number
-  defaultSort?: [string, SortDirection]
+  defaultSort?: [keyof T & string, SortDirection]
 }
 
 const props = withDefaults(defineProps<Props>(), {
   perPage: 15,
-  defaultSort: () => ['', 'asc'],
+  defaultSort: undefined,
 })
 
 // State
 const currentPage = ref(1)
-const sortField = ref(props.defaultSort[0])
-const sortDirection = ref<SortDirection>(props.defaultSort[1])
+const sortField = ref<keyof T & string>()
+const sortDirection = ref<SortDirection>('asc')
+
+if (props.defaultSort) {
+  ;[sortField.value, sortDirection.value] = props.defaultSort
+}
 
 // Computed
-const sortedData = computed<Company[]>(() => {
-  if (!sortField.value) return props.data
+const sortedData = computed<T[]>(() => {
+  const field = sortField.value
+  if (!field) return props.data
 
-  return [...props.data].sort((a: Company, b: Company) => {
-    const aVal = a[sortField.value as keyof Company]
-    const bVal = b[sortField.value as keyof Company]
+  return [...props.data].sort((a, b) => {
+    const aVal = a[field]
+    const bVal = b[field]
 
-    let comparison = 0
-    if (aVal > bVal) comparison = 1
-    if (aVal < bVal) comparison = -1
+    const comparison =
+      typeof aVal === 'number' && typeof bVal === 'number'
+        ? aVal - bVal
+        : String(aVal).localeCompare(String(bVal))
 
     return sortDirection.value === 'asc' ? comparison : -comparison
   })
 })
 
-const paginatedData = computed<Company[]>(() => {
+const paginatedData = computed<T[]>(() => {
   const start = (currentPage.value - 1) * props.perPage
   const end = start + props.perPage
   return sortedData.value.slice(start, end)
@@ -183,7 +186,7 @@ const displayedPages = computed<(number | string)[]>(() => {
 })
 
 // Methods
-const toggleSort = (field: keyof Company): void => {
+const toggleSort = (field: keyof T & string): void => {
   if (sortField.value === field) {
     sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc'
   } else {
@@ -209,18 +212,6 @@ watch(
   color: inherit;
   font: inherit;
   cursor: pointer;
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
 }
 
 .data-table {

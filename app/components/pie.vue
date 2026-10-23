@@ -3,40 +3,19 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onMounted, onUnmounted } from 'vue'
-import type { ChartOptions } from 'chart.js'
+import { computed } from 'vue'
 import { Pie } from 'vue-chartjs'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
+import { usePrefersDark } from '@/composables/usePrefersDark'
 import type { ChartData } from '@/types'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 
-interface Props {
+defineProps<{
   chartData: ChartData
-  options?: ChartOptions<'pie'>
-}
+}>()
 
-const props = withDefaults(defineProps<Props>(), {
-  options: () => ({}),
-})
-
-const isDarkMode = ref(false)
-
-const updateDarkMode = () => {
-  isDarkMode.value = window.matchMedia('(prefers-color-scheme: dark)').matches
-}
-
-let mediaQuery: MediaQueryList | undefined
-
-onMounted(() => {
-  updateDarkMode()
-  mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-  mediaQuery.addEventListener('change', updateDarkMode)
-})
-
-onUnmounted(() => {
-  mediaQuery?.removeEventListener('change', updateDarkMode)
-})
+const isDarkMode = usePrefersDark()
 
 const chartOptions = computed(() => ({
   responsive: true,
@@ -48,6 +27,5 @@ const chartOptions = computed(() => ({
       },
     },
   },
-  ...props.options,
 }))
 </script>

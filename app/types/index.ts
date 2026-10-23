@@ -1,9 +1,5 @@
 export type Stance =
-  | 'Taiwan'
-  | 'China'
-  | 'Chinese Taipei'
-  | 'Taiwan ROC'
-  | 'Taiwan Region'
+  'Taiwan' | 'China' | 'Chinese Taipei' | 'Taiwan ROC' | 'Taiwan Region'
 
 export interface Company {
   company_name: string
@@ -11,8 +7,8 @@ export interface Company {
   stance: Stance
 }
 
-export interface TableColumn {
-  field: keyof Company
+export interface TableColumn<T = Company> {
+  field: keyof T & string
   label: string
   sortable: boolean
 }

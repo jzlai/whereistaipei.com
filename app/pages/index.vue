@@ -43,7 +43,7 @@
             <div class="column is-7">
               <div class="field">
                 <p class="control has-icons-left">
-                  <label class="label has-text-left" for="company-search"
+                  <label class="sr-only" for="company-search"
                     >Search companies</label
                   >
                   <input
@@ -178,8 +178,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import { data } from '@/data'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import PieChart from '@/components/pie.vue'
 import DataTable from '@/components/DataTable.vue'
 import SvgIcon from '@/components/SvgIcon.vue'
@@ -190,25 +189,27 @@ import {
   mdiFilter,
   mdiGithub,
 } from '@mdi/js'
-import { STANCE_COLORS } from '@/constants/stances'
-import type {
-  Company,
-  TableColumn,
-  ChartData,
-  Stance,
-  PartialStanceCounts,
-} from '@/types'
+import { useCompanyFilters } from '@/composables/useCompanyFilters'
+import type { Company, TableColumn } from '@/types'
+
+const {
+  search,
+  selectedIndustry,
+  selectedStance,
+  filteredData,
+  industries,
+  stances,
+  pieChartData,
+  resetFields,
+} = useCompanyFilters()
 
 // Refs
 const topSection = ref<HTMLElement>()
 const tableSection = ref<HTMLElement>()
-const search = ref('')
-const selectedIndustry = ref<string>()
-const selectedStance = ref<Stance>()
 const isScrolled = ref(false)
 
 // Constants
-const columns: TableColumn[] = [
+const columns: TableColumn<Company>[] = [
   {
     field: 'company_name',
     label: 'Company Name',
@@ -226,67 +227,7 @@ const columns: TableColumn[] = [
   },
 ]
 
-// Computed
-const filteredData = computed<Company[]>(() => {
-  return data.filter(entry => {
-    return (
-      entry.company_name.toLowerCase().includes(search.value.toLowerCase()) &&
-      isSelectedIndustry(entry.industry) &&
-      isSelectedStance(entry.stance)
-    )
-  })
-})
-
-const industries = computed<string[]>(() => {
-  return Array.from(new Set(data.map(entry => entry.industry)))
-})
-
-const stances = computed<Stance[]>(() => {
-  return Array.from(new Set(data.map(entry => entry.stance)))
-})
-
-const stancesWithAmount = computed<PartialStanceCounts>(() => {
-  return filteredData.value.reduce((acc, curr) => {
-    acc[curr.stance] = (acc[curr.stance] ?? 0) + 1
-    return acc
-  }, {} as PartialStanceCounts)
-})
-
-const pieChartData = computed<ChartData>(() => {
-  const labels = Object.keys(stancesWithAmount.value) as Stance[]
-  const datasets = [
-    {
-      data: Object.values(stancesWithAmount.value) as number[],
-      backgroundColor: labels.map(label => STANCE_COLORS[label]),
-    },
-  ]
-  return {
-    labels,
-    datasets,
-  }
-})
-
 // Methods
-const resetFields = (): void => {
-  selectedIndustry.value = undefined
-  selectedStance.value = undefined
-  search.value = ''
-}
-
-const isSelectedIndustry = (industry: string): boolean => {
-  if (!selectedIndustry.value) {
-    return true
-  }
-  return industry.toLowerCase() === selectedIndustry.value.toLowerCase()
-}
-
-const isSelectedStance = (stance: Stance): boolean => {
-  if (!selectedStance.value) {
-    return true
-  }
-  return stance.toLowerCase() === selectedStance.value.toLowerCase()
-}
-
 const handleScroll = (): void => {
   isScrolled.value = window.scrollY > 500
 }
@@ -301,7 +242,7 @@ const scrollToTable = (): void => {
 
 // Lifecycle
 onMounted(() => {
-  window.addEventListener('scroll', handleScroll)
+  window.addEventListener('scroll', handleScroll, { passive: true })
 })
 
 onBeforeUnmount(() => {
@@ -333,18 +274,6 @@ onBeforeUnmount(() => {
 
 .skip-link:focus {
   top: 1rem;
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
 }
 
 .scroll-button {
